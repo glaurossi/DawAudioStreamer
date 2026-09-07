@@ -7,7 +7,7 @@ VST3_TARGET="${HOME}/Library/Audio/Plug-Ins/VST3/DAS Send.vst3"
 AU_TARGET="${HOME}/Library/Audio/Plug-Ins/Components/DAS Send.component"
 OBS_TARGET="${HOME}/Library/Application Support/obs-studio/plugins/das-obs-source.plugin"
 
-print "DawAudioStreamer macOS検証版をインストールします。"
+print "DawAudioStreamer macOSプレビュー版をインストールします。"
 print "DAWとOBSを終了してから続けてください。"
 print
 

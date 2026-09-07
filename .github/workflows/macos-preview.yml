@@ -49,10 +49,10 @@ jobs:
             -DDAS_BINARY_DIR=${{ github.workspace }}/build/macos-preview \
             -DDAS_INSTALL_ROOT=${{ github.workspace }}/build/macos-package \
             -DDAS_OUTPUT_DIR=${{ github.workspace }}/build/dist \
-            -DDAS_VERSION=0.4.0-macos-preview.1 \
+            -DDAS_VERSION=0.4.1-macos-preview.1 \
             -DDAS_COMMIT=${{ github.sha }} \
             -P cmake/CreateMacPreviewPackage.cmake
-          package=build/dist/DawAudioStreamer-0.4.0-macos-preview.1-macOS-AppleSilicon
+          package=build/dist/DawAudioStreamer-0.4.1-macos-preview.1-macOS-AppleSilicon
           test -f "$package/README-macOS.txt"
           test -x "$package/Install.command"
           test -x "$package/Uninstall.command"

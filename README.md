@@ -36,7 +36,7 @@ Discordでも使う場合は、開いた[VB-CABLE公式ページ](https://vb-aud
 
 ### 3. Discord
 
-1. VSTに「Discord ● 直接共有用の音声を準備済み」と表示されていることを確認します。
+1. DAS SendのDiscord欄が緑の `OK` になっていることを確認します。
 2. Discordで［画面を共有］を開きます。
 3. DAWだけを見せるならDAWアプリ、VST画面も見せるなら画面全体を選びます。
 

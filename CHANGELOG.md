@@ -1,5 +1,10 @@
 # 変更履歴
 
+## [0.4.1] - 2026-09-07
+
+- プラグインの状態表示を、短い単語と記号で分かるデザインに変更
+- バイパス時をエラーではなく、文字のないグレー表示に変更
+
 ## [0.4.0] - 2026-09-05
 
 - Windows正式版を公開
@@ -34,3 +39,4 @@ VB-CABLEの公式ページを開けます。
 [0.4.0-beta.2]: https://github.com/yoruhinot/DawAudioStreamer/releases/tag/v0.4.0-beta.2
 [0.4.0-beta.3]: https://github.com/yoruhinot/DawAudioStreamer/releases/tag/v0.4.0-beta.3
 [0.4.0]: https://github.com/yoruhinot/DawAudioStreamer/releases/tag/v0.4.0
+[0.4.1]: https://github.com/yoruhinot/DawAudioStreamer/releases/tag/v0.4.1
