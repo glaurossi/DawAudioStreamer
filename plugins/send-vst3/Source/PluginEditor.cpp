@@ -71,7 +71,6 @@ void drawShareIcon(juce::Graphics& graphics, juce::Rectangle<float> bounds,
 
 DasSendEditor::DasSendEditor(DasSendProcessor& processor)
     : AudioProcessorEditor(processor), processor_(processor) {
-  useJapanese_ = juce::SystemStats::getUserLanguage().startsWithIgnoreCase("ja");
   darkMode_ = juce::Desktop::getInstance().isDarkModeActive();
   const auto theme = themeFor(darkMode_);
 
@@ -80,7 +79,7 @@ DasSendEditor::DasSendEditor(DasSendProcessor& processor)
   title_.setColour(juce::Label::textColourId, theme.ink);
   addAndMakeVisible(title_);
 
-  subtitle_.setText("DAW AUDIO STREAM", juce::dontSendNotification);
+  subtitle_.setText("DAW  >  STREAM", juce::dontSendNotification);
   subtitle_.setFont(juce::FontOptions(11.0F, juce::Font::bold));
   subtitle_.setColour(juce::Label::textColourId, theme.graphite);
   subtitle_.setJustificationType(juce::Justification::centredRight);
@@ -97,6 +96,7 @@ DasSendEditor::DasSendEditor(DasSendProcessor& processor)
   for (auto* status : {&obsStatus_, &discordStatus_}) {
     status->setFont(juce::FontOptions(18.0F, juce::Font::bold));
     status->setColour(juce::Label::textColourId, theme.ink);
+    status->setJustificationType(juce::Justification::centred);
     addAndMakeVisible(*status);
   }
 
@@ -114,10 +114,6 @@ DasSendEditor::DasSendEditor(DasSendProcessor& processor)
 DasSendEditor::~DasSendEditor() {
   juce::Desktop::getInstance().removeDarkModeSettingListener(this);
   stopTimer();
-}
-
-juce::String DasSendEditor::text(const char* japanese, const char* english) const {
-  return juce::String::fromUTF8(useJapanese_ ? japanese : english);
 }
 
 juce::Colour DasSendEditor::colourFor(const VisualState state) const {
@@ -196,10 +192,12 @@ void DasSendEditor::paint(juce::Graphics& graphics) {
   drawShareIcon(graphics, juce::Rectangle<float>(338.0F, 112.0F, 48.0F, 48.0F),
                 colourFor(discordState_));
 
-  graphics.setColour(theme.detail);
-  graphics.fillRoundedRectangle(24.0F, 220.0F, 572.0F, 38.0F, 12.0F);
-  graphics.setColour(theme.linen);
-  graphics.drawRoundedRectangle(24.5F, 220.5F, 571.0F, 37.0F, 12.0F, 1.0F);
+  if (detail_.getText().isNotEmpty()) {
+    graphics.setColour(theme.detail);
+    graphics.fillRoundedRectangle(24.0F, 220.0F, 572.0F, 38.0F, 12.0F);
+    graphics.setColour(theme.linen);
+    graphics.drawRoundedRectangle(24.5F, 220.5F, 571.0F, 37.0F, 12.0F, 1.0F);
+  }
 }
 
 void DasSendEditor::resized() {
@@ -225,70 +223,58 @@ void DasSendEditor::timerCallback() {
   if (!processor_.isPrimarySender()) {
     obsState_ = VisualState::warning;
     discordState_ = VisualState::warning;
-    updateCard(obsStatus_, text("待機", "PAUSED"), obsState_);
-    updateCard(discordStatus_, text("待機", "PAUSED"), discordState_);
-    detail_.setText(text("DAS Sendは1個だけ使用してください。追加分は音を送りません。",
-                         "Use one DAS Send only. Additional instances do not send audio."),
-                    juce::dontSendNotification);
+    updateCard(obsStatus_, "1 ONLY", obsState_);
+    updateCard(discordStatus_, "1 ONLY", discordState_);
+    detail_.setText("DAS Send  x  1", juce::dontSendNotification);
   } else if (processor_.isBypassed()) {
     obsState_ = VisualState::waiting;
     discordState_ = VisualState::waiting;
-    updateCard(obsStatus_, text("バイパス中", "BYPASSED"), obsState_);
-    updateCard(discordStatus_, text("バイパス中", "BYPASSED"), discordState_);
-    detail_.setText(text("DAS Sendを有効にすると配信を再開します。",
-                         "Enable DAS Send to resume streaming."),
-                    juce::dontSendNotification);
+    updateCard(obsStatus_, {}, obsState_);
+    updateCard(discordStatus_, {}, discordState_);
+    detail_.setText({}, juce::dontSendNotification);
   } else if (!processor_.sampleRateSupported()) {
     obsState_ = VisualState::error;
     discordState_ = VisualState::error;
-    updateCard(obsStatus_, text("非対応", "UNSUPPORTED"), obsState_);
-    updateCard(discordStatus_, text("非対応", "UNSUPPORTED"), discordState_);
-    detail_.setText(text("DAWのサンプルレートを8～384 kHzに設定してください。",
-                         "Set the DAW sample rate between 8 and 384 kHz."),
-                    juce::dontSendNotification);
+    updateCard(obsStatus_, "8-384 kHz", obsState_);
+    updateCard(discordStatus_, "8-384 kHz", discordState_);
+    detail_.setText({}, juce::dontSendNotification);
   } else if (!processor_.transportReady()) {
     obsState_ = VisualState::error;
     discordState_ = VisualState::error;
-    updateCard(obsStatus_, text("エラー", "ERROR"), obsState_);
-    updateCard(discordStatus_, text("エラー", "ERROR"), discordState_);
-    detail_.setText(text("OBSとDAWを終了し、OBS→DAWの順に起動し直してください。",
-                         "Quit both apps, then restart OBS before the DAW."),
-                    juce::dontSendNotification);
+    updateCard(obsStatus_, "!", obsState_);
+    updateCard(discordStatus_, "!", discordState_);
+    detail_.setText("RESTART   OBS  >  DAW", juce::dontSendNotification);
   } else {
     obsState_ = obsActive ? VisualState::active : VisualState::waiting;
-    updateCard(obsStatus_, obsActive ? text("送信中", "STREAMING")
-                                     : text("接続待ち", "WAITING"),
-               obsState_);
+    updateCard(obsStatus_, obsActive ? "OK" : "WAIT", obsState_);
 
 #if defined(__APPLE__)
     discordState_ = VisualState::active;
-    updateCard(discordStatus_, text("OS音声共有", "SYSTEM AUDIO"), discordState_);
-    detail_.setText(text("OBS：DAS Audioを追加　／　Discord：macOSの画面共有を使用",
-                         "OBS: add DAS Audio  /  Discord: use macOS screen sharing"),
+    updateCard(discordStatus_, "OK", discordState_);
+    detail_.setText("OBS + DAS Audio     /     DISCORD + SHARE",
                     juce::dontSendNotification);
 #else
     const auto bridgeState = processor_.discordBridgeState();
     if (bridgeState == DiscordBridge::State::ready) {
       discordState_ = VisualState::active;
-      updateCard(discordStatus_, text("準備完了", "READY"), discordState_);
+      updateCard(discordStatus_, "OK", discordState_);
     } else if (bridgeState == DiscordBridge::State::virtualOutputRequired) {
       discordState_ = VisualState::warning;
       updateCard(discordStatus_, "VB-CABLE", discordState_);
     } else if (bridgeState == DiscordBridge::State::starting) {
       discordState_ = VisualState::waiting;
-      updateCard(discordStatus_, text("準備中", "STARTING"), discordState_);
+      updateCard(discordStatus_, "...", discordState_);
     } else {
       discordState_ = VisualState::error;
-      updateCard(discordStatus_, text("エラー", "ERROR"), discordState_);
+      updateCard(discordStatus_, "!", discordState_);
     }
 
     if (bridgeState == DiscordBridge::State::virtualOutputRequired) {
-      detail_.setText(text("DiscordにはVB-CABLEが必要です。OBSはそのまま使えます。",
-                           "Discord needs VB-CABLE. OBS is ready to use."),
-                      juce::dontSendNotification);
+      detail_.setText("DISCORD + VB-CABLE", juce::dontSendNotification);
+    } else if (bridgeState == DiscordBridge::State::stopped) {
+      detail_.setText("RESTART   DAW", juce::dontSendNotification);
     } else {
-      detail_.setText(text("OBS：DAS Audioを追加　／　Discord：DAWまたは画面全体を共有",
-                           "OBS: add DAS Audio  /  Discord: share the DAW or your screen"),
+      detail_.setText("OBS + DAS Audio     /     DISCORD + SHARE",
                       juce::dontSendNotification);
     }
 #endif

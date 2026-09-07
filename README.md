@@ -46,12 +46,12 @@ Discordのマイク設定はそのままで構いません。
 
 | 表示 | 対処 |
 |---|---|
-| `OBS ● DAS Audioへ送信中` | OBSへ音声を送っています。 |
-| `OBS ○ DAS Audioを待っています` | OBSで「DAS Audio（DAW）」を追加してください。 |
-| `Discord ● 直接共有用の音声を準備済み` | Discordで共有を開始できます。 |
-| `Discord × VB-CABLEを追加してください` | VB-CABLEを導入してWindowsを再起動してください。 |
-| `△ DAS Sendが複数あります` | マスターバスに1個だけ残してください。 |
-| `バイパス中` | DAS Sendを有効にすると配信を再開します。 |
+| 緑の `OK` | 使用できます。OBS側は音声を受信中です。 |
+| 灰色の `WAIT` | OBSで「DAS Audio（DAW）」を追加してください。 |
+| 黄色の `VB-CABLE` | VB-CABLEを導入してWindowsを再起動してください。 |
+| 黄色の `1 ONLY` | DAS Sendを1個だけ残してください。 |
+| 赤い `!` | OBS、DAWの順に起動し直してください。 |
+| 灰色・文字なし | DAS Sendがバイパスされています。 |
 
 ## 音が二重に聞こえる場合
 
