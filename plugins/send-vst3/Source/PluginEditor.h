@@ -22,10 +22,8 @@ private:
   void applyTheme();
   void updateCard(juce::Label& label, const juce::String& text, VisualState state);
   [[nodiscard]] juce::Colour colourFor(VisualState state) const;
-  [[nodiscard]] juce::String text(const char* japanese, const char* english) const;
 
   DasSendProcessor& processor_;
-  bool useJapanese_ {};
   bool darkMode_ {};
   VisualState obsState_ {VisualState::waiting};
   VisualState discordState_ {VisualState::waiting};
