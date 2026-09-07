@@ -73,7 +73,7 @@ if(EXISTS "${binary_root}/_deps/simde-src/COPYING")
 endif()
 
 file(WRITE "${package_root}/SOURCE.txt"
-"この検証版に対応するソース：\n"
+"このプレビュー版に対応するソース：\n"
 "https://github.com/yoruhinot/DawAudioStreamer/tree/${DAS_COMMIT}\n\n"
 "ライセンス条件はlicenses内を参照してください。\n")
 

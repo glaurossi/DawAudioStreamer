@@ -143,7 +143,7 @@ public:
 class BridgeApplication final : public juce::JUCEApplication {
 public:
   const juce::String getApplicationName() override { return "DAS Discord Bridge Test"; }
-  const juce::String getApplicationVersion() override { return "0.4.0"; }
+  const juce::String getApplicationVersion() override { return "0.4.1"; }
   void initialise(const juce::String&) override { window_ = std::make_unique<BridgeWindow>(); }
   void shutdown() override { window_.reset(); }
 

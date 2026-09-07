@@ -1,4 +1,4 @@
-DawAudioStreamer macOS検証版
+DawAudioStreamer macOSプレビュー版
 ============================
 
 対応：Apple Silicon（M1／M2／M3／M4）、macOS 13以降

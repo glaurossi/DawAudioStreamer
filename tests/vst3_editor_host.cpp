@@ -26,7 +26,7 @@ public:
 class EditorHostApplication final : public juce::JUCEApplication {
 public:
   const juce::String getApplicationName() override { return "DAS Send UI Test"; }
-  const juce::String getApplicationVersion() override { return "0.4.0"; }
+  const juce::String getApplicationVersion() override { return "0.4.1"; }
 
   void initialise(const juce::String&) override {
 #if defined(_WIN32)
