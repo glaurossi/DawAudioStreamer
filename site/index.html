@@ -28,7 +28,7 @@
   <meta name="twitter:description" content="DAWの音をOBSへ。WindowsではDiscordの画面共有にも。オーディオインターフェースの設定はそのまま。">
   <meta name="twitter:image" content="https://yoruhinot.github.io/DawAudioStreamer/og.png?v=20260908">
   <meta name="twitter:image:alt" content="DawAudioStreamer — DAWの音を、そのまま配信へ。OBS / Discord">
-  <link rel="stylesheet" href="styles.css?v=20260905-7">
+  <link rel="stylesheet" href="styles.css?v=20260908-video">
 </head>
 <body>
   <header class="site-header">
@@ -57,13 +57,18 @@
         <p class="download-note">無料・広告なし・オープンソース</p>
       </div>
 
-      <figure class="plugin-figure">
-        <a class="plugin-image-link" id="plugin-image-link" href="das-send-ui.png?v=20260907-neutral" target="_blank" rel="noopener" aria-label="DAS Sendのプラグイン画面を拡大して見る">
-          <picture>
-            <source srcset="das-send-ui-dark.png?v=20260907-neutral" media="(prefers-color-scheme: dark)">
-            <img src="das-send-ui.png?v=20260907-neutral" width="620" height="280" alt="DAS Sendのプラグイン画面">
-          </picture>
-        </a>
+      <figure class="demo-figure">
+        <div class="demo-player">
+          <video id="demo-video" controls playsinline preload="none" width="1920" height="1080" poster="demo-poster.webp" aria-label="DawAudioStreamerの使い方：DAW、OBS、Discordでの操作">
+            <source src="das-demo.mp4" type="video/mp4">
+            <a href="das-demo.mp4">動画をダウンロード</a>
+          </video>
+          <button class="demo-play" id="demo-play" type="button" aria-label="Windowsでの使い方を再生（約17秒）" aria-controls="demo-video" hidden>
+            <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3 17 10 5 17Z" fill="currentColor"/></svg>
+            <span>17秒で見る</span>
+          </button>
+        </div>
+        <figcaption>Windowsでの操作</figcaption>
       </figure>
     </section>
 
@@ -188,6 +193,6 @@
     <span class="trademark-note">OBS、Discord、VB-CABLEの公式製品ではありません。</span>
   </footer>
 
-  <script src="app.js?v=20260907-1" defer></script>
+  <script src="app.js?v=20260908-video" defer></script>
 </body>
 </html>

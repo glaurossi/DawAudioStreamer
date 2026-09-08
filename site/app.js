@@ -4,17 +4,20 @@ const versionLabel = document.querySelector("#download-version");
 const macDownloadButton = document.querySelector("#mac-download");
 const macDownloadTitle = document.querySelector("#mac-download-title");
 const macVersionLabel = document.querySelector("#mac-download-version");
-const pluginImageLink = document.querySelector("#plugin-image-link");
+const demoVideo = document.querySelector("#demo-video");
+const demoPlay = document.querySelector("#demo-play");
 
-if (pluginImageLink && window.matchMedia) {
-  const darkMode = window.matchMedia("(prefers-color-scheme: dark)");
-  const updatePluginImageLink = () => {
-    pluginImageLink.href = darkMode.matches
-      ? "das-send-ui-dark.png?v=20260907-neutral"
-      : "das-send-ui.png?v=20260907-neutral";
-  };
-  updatePluginImageLink();
-  darkMode.addEventListener?.("change", updatePluginImageLink);
+if (demoVideo && demoPlay) {
+  demoPlay.hidden = false;
+  demoPlay.addEventListener("click", () => {
+    demoPlay.hidden = true;
+    demoVideo.focus({ preventScroll: true });
+    demoVideo.play().catch(() => {
+      demoPlay.hidden = false;
+    });
+  });
+  demoVideo.addEventListener("play", () => { demoPlay.hidden = true; });
+  demoVideo.addEventListener("ended", () => { demoPlay.hidden = false; });
 }
 
 fetch("https://api.github.com/repos/yoruhinot/DawAudioStreamer/releases?per_page=10", {
