@@ -84,7 +84,7 @@ DAWプロジェクト、OBSシーン、ASIO設定、別途導入した仮想オ�
 ダウンロードは[GitHub Releases](https://github.com/yoruhinot/DawAudioStreamer/releases)から行ってください。
 インストール時にWindowsまたはmacOSの警告が表示される場合があります。
 
-不具合や要望は[Issues](https://github.com/yoruhinot/DawAudioStreamer/issues)へお願いします。
+不具合や要望は[X（@yoruhinot）](https://x.com/yoruhinot)または[Issues](https://github.com/yoruhinot/DawAudioStreamer/issues)へお願いします。
 
 ## ライセンス
 
