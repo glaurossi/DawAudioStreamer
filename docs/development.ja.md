@@ -46,6 +46,23 @@ ctest --preset macos-preview-intel
 
 配布用ZIPは`cmake/CreateMacPreviewPackage.cmake`で作成します（正確なコマンドは`macos-preview` CIワークフローを参照）。プラグインと`Install.command`／`Uninstall.command`をアドホック署名で同梱します。CIは両アーキテクチャをネイティブランナーでビルドします。
 
+## macOS（プレビュー版）
+
+- IntelまたはApple Silicon搭載Mac・macOS 13以降
+- Xcodeとコマンドラインツール（`xcode-select --install`）
+- CMake 3.25以降
+- Macのアーキテクチャに合ったOBS Studioを`/Applications/OBS.app`に
+
+アーキテクチャに合わせてpresetを選びます。OBSはユニバーサルな`libobs`を配布していないため、インストール済みOBSと同じアーキテクチャしかビルドできません：
+
+```zsh
+cmake --preset macos-preview-intel   # または macos-preview-arm
+cmake --build --preset macos-preview-intel
+ctest --preset macos-preview-intel
+```
+
+配布用ZIPは`cmake/CreateMacPreviewPackage.cmake`で作成します（正確なコマンドは`macos-preview` CIワークフローを参照）。プラグインと`Install.command`／`Uninstall.command`をアドホック署名で同梱します。CIは両アーキテクチャをネイティブランナーでビルドします。
+
 使用している依存ライブラリと固定revisionは
 [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md)に記載しています。Releaseの対応ソースZIPには、
 オフラインで再ビルドできる依存ソースも含まれます。
