@@ -72,7 +72,7 @@ DAS SendはDAWへ戻す音声や音量を変更しません。配信用の音声
 - Discordデスクトップ版
 - Apple Silicon搭載Mac・macOS 13以降（AU／VST3、プレビュー版）
 
-Studio One Pro 8、REAPER、Cubaseで動作を確認しています。
+Fender Studio Pro 8、REAPER、Cubaseで動作を確認しています。
 
 ## アンインストール
 

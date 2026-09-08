@@ -20,7 +20,7 @@ body:
     attributes:
       label: 使用環境
       description: Windows、DAW、オーディオインターフェース、OBS／Discordなどを書いてください。
-      placeholder: 例：Windows 11、Studio One Pro 8、48 kHz
+      placeholder: 例：Windows 11、Fender Studio Pro 8、48 kHz
     validations:
       required: true
 
