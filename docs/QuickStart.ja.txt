@@ -1,77 +1,99 @@
+<<<<<<<< HEAD:docs/QuickStart.ja.txt
 DawAudioStreamer 0.4.3 クイックスタート
 ========================================
+========
+DawAudioStreamer 0.4.1 Quick Start
+===================================
+>>>>>>>> 939e599 (docs(quickstart,development): translate to English, preserve Japanese as .ja files):docs/QuickStart.txt
 
-DAWのオーディオインターフェース／ASIO設定は変更しません。
-普段どおりDAWを鳴らしながら、配信用コピーをOBSとDiscordへ送ります。
+Your DAW's audio interface and ASIO settings are not changed.
+DawAudioStreamer sends a streaming copy of your DAW's audio to OBS and Discord
+while your DAW plays normally.
 
-最初に1回だけ
---------------
+First-time setup
+----------------
 
+<<<<<<<< HEAD:docs/QuickStart.ja.txt
 1. OBS、Discord、DAWを終了します。
 2. DawAudioStreamer-Setup-0.4.3.exeを実行します。
 3. DAWを起動します。
 4. プロジェクトのマスターバスの最後へ「DAS Send」を1個だけ挿します。
+========
+1. Close OBS, Discord, and your DAW.
+2. Run DawAudioStreamer-Setup-0.4.1.exe.
+3. Start your DAW.
+4. Insert one instance of DAS Send at the end of your project's master bus.
+>>>>>>>> 939e599 (docs(quickstart,development): translate to English, preserve Japanese as .ja files):docs/QuickStart.txt
 
-インストール時にWindowsの警告が表示される場合があります。
+Windows may show a security warning during installation.
 
+<<<<<<<< HEAD:docs/QuickStart.ja.txt
 セットアップ中にDiscord用のVB-CABLEを確認します。見つからなくてもOBSは使用できます。
 Discordも使用する場合は、完了時に開くVB-CABLE公式ページからドライバーを導入してください。
 DawAudioStreamer自身は第三者ドライバーやWindowsの既定音声設定を変更しません。
+========
+The installer checks for a Discord virtual audio output. If none is found, OBS
+still works fine. For Discord support, install the driver from the VB-CABLE
+page that opens at the end of setup. DawAudioStreamer itself does not install
+third-party drivers or change Windows default audio settings.
+>>>>>>>> 939e599 (docs(quickstart,development): translate to English, preserve Japanese as .ja files):docs/QuickStart.txt
 
 OBS
 ---
 
-1. OBSの「ソース」欄で［＋］を押します。
-2. 「DAS Audio（DAW）」を追加します。
-3. DAWを再生し、OBSの音声ミキサーが動けば完了です。
+1. In OBS, click [+] under Sources.
+2. Add DAS Audio (DAW).
+3. Play something in your DAW — if the OBS audio meter moves, you're done.
 
 Discord
 -------
 
-1. DAS SendのDiscord欄が緑の「OK」になっていることを確認します。
-2. Discordで［画面を共有］を開きます。
-3. DAWだけを見せるなら［アプリ］からDAW本体を選びます。
-4. VST画面やほかのウィンドウも見せるなら［画面］から対象モニターを選びます。
-5. 共有を開始します。
+1. Confirm the Discord indicator in DAS Send shows a green "OK".
+2. In Discord, open Share Screen.
+3. To share your DAW only, choose your DAW application under Apps.
+4. To include VST windows or other windows, choose your monitor under Screen.
+5. Start sharing.
 
-DAS Send側のモード選択や追加アプリはありません。画面全体共有でほかのWindowsアプリの音まで
-混ざる環境では、DAW本体のアプリ共有を選ぶと対象を絞れます。
+There are no extra modes or companion apps in DAS Send. If a full-screen share
+picks up audio from other Windows apps, switching to the DAW application share
+limits it to your DAW only.
 
-正常な表示
-----------
+Status display
+--------------
 
-緑の「OK」
-  使用できます。OBS側は音声を受信中です。
+Green "OK"
+  Working — OBS is receiving audio.
 
-灰色の「WAIT」
-  OBSで「DAS Audio（DAW）」を追加してください。
+Gray "WAIT"
+  Add DAS Audio (DAW) as a source in OBS.
 
-黄色の「VB-CABLE」
-  Discordを使う場合はVB-CABLEを導入し、Windowsを再起動してください。
-  OBSは引き続き使えます。
+Yellow "VB-CABLE"
+  For Discord, install VB-CABLE and restart Windows.
+  OBS continues to work in the meantime.
 
-黄色の「1 ONLY」
-  DAS Sendを1個だけ残してください。
+Yellow "1 ONLY"
+  Remove extra DAS Send instances — only one is allowed.
 
-赤い「!」
-  OBS、DAWの順に起動し直してください。
+Red "!"
+  Restart OBS first, then your DAW.
 
-灰色・文字なし
-  DAS Sendがバイパスされています。
+Gray, no text
+  DAS Send is bypassed.
 
-二重音を防ぐ
-------------
+Avoiding double audio
+---------------------
 
-- DAS Sendはマスターに1個だけ挿します。
-- OBSでは同じDAW音をDAS Audioと別のデスクトップ音声から同時取得しません。
-- Discordでは共有を1つだけ開始します。
-- DiscordのマイクやWindowsの既定出力は変更しません。
+- Insert DAS Send on the master bus once only.
+- In OBS, don't capture the same DAW audio through both DAS Audio and Desktop Audio.
+- In Discord, start only one screen share at a time.
+- Don't change Discord's microphone or Windows default audio output.
 
-アンインストール
-----------------
+Uninstall
+---------
 
-DAWとOBSを終了し、Windowsの「インストールされているアプリ」から
-DawAudioStreamerをアンインストールします。ASIO設定、DAWプロジェクト、OBSシーン、第三者の
-仮想オーディオドライバーは削除しません。使用中ファイルが残った場合だけ再起動してください。
+Close your DAW and OBS, then remove DawAudioStreamer from Installed apps in
+Windows Settings. ASIO settings, DAW projects, OBS scenes, and any third-party
+virtual audio drivers are not removed. A restart is only needed if files were
+in use at uninstall time.
 
-詳しい説明はインストール先のREADME.mdを参照してください。
+For more detail, see README.md in the install folder.
