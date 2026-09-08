@@ -13,6 +13,9 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  DAS_VERSION: "0.4.1-macos-preview.1"
+
 jobs:
   build:
     name: macOS preview (${{ matrix.label }})
@@ -37,6 +40,7 @@ jobs:
         run: |
           brew install --cask obs
           test -d /Applications/OBS.app/Contents/Frameworks/libobs.framework
+          lipo -archs /Applications/OBS.app/Contents/Frameworks/libobs.framework/libobs | grep -qw "$(uname -m)"
 
       - name: Configure
         run: cmake --preset ${{ matrix.preset }}
@@ -59,11 +63,11 @@ jobs:
             -DDAS_BINARY_DIR=${{ github.workspace }}/build/${{ matrix.preset }} \
             -DDAS_INSTALL_ROOT=${{ github.workspace }}/build/macos-package-${{ matrix.label }} \
             -DDAS_OUTPUT_DIR=${{ github.workspace }}/build/dist \
-            -DDAS_VERSION=0.4.1-macos-preview.1 \
+            -DDAS_VERSION=${{ env.DAS_VERSION }} \
             -DDAS_COMMIT=${{ github.sha }} \
             -DDAS_ARCH_LABEL=${{ matrix.label }} \
             -P cmake/CreateMacPreviewPackage.cmake
-          package=build/dist/DawAudioStreamer-0.4.1-macos-preview.1-macOS-${{ matrix.label }}
+          package=build/dist/DawAudioStreamer-${{ env.DAS_VERSION }}-macOS-${{ matrix.label }}
           test -f "$package/README-macOS.txt"
           test -x "$package/Install.command"
           test -x "$package/Uninstall.command"
