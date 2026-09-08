@@ -54,7 +54,8 @@ jobs:
       - name: Stage bundles
         run: |
           cmake -E remove_directory build/macos-package-${{ matrix.label }}
-          cmake --install build/${{ matrix.preset }} --config Release
+          cmake --install build/${{ matrix.preset }} --config Release \
+            --prefix build/macos-package-${{ matrix.label }}
 
       - name: Create preview package
         run: |
