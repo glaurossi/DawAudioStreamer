@@ -65,3 +65,61 @@ DawAudioStreamerは、OBS Project、Discord Inc.、Steinberg Media Technologies 
 Elgato、VB-Audioの公式製品ではなく、各社からの承認、提携、保証を意味しません。
 OBS、Discord、JUCE、VST、ASIO、Elgato、VB-Audioなどの名称および商標は各権利者に帰属します。
 本ソフトウェアはDiscordの非公開API、非公開イベント、DLL注入を使用しません。
+
+---
+
+# Third-Party Software and Attributions
+
+The distributed source archive includes the following pinned revisions used to build the binaries.
+
+## JUCE
+
+- Upstream: <https://github.com/juce-framework/JUCE>
+- Revision: `3af3ce009f6a02f6fa651008fffb5b41743a9fab` (JUCE 8.0.10)
+- License: JUCE Framework modules are dual-licensed under AGPLv3 and the JUCE commercial license
+
+This free distribution does not rely on a JUCE commercial license; it provides DAS Send, which links JUCE, under the AGPL-3.0-only terms. The corresponding source also includes DAS Engine, used for developer verification, provided under the same terms. JUCE's own `LICENSE.md` and the licenses of the JUCE dependencies in use are included in the installer and the corresponding source. Attributions for HarfBuzz, SheenBidi, libpng, Independent JPEG Group JPEG, and zlib, which are embedded in the distributed binaries, are also included under `licenses`.
+
+## Steinberg VST3 SDK
+
+The VST3 SDK headers bundled with JUCE 8.0.10 are used to build the VST3 plugin. The corresponding source and `VST3-SDK-LICENSE.txt` are included in the distribution.
+
+VST is a registered trademark of Steinberg Media Technologies GmbH.
+
+## r8brain-free-src
+
+- Upstream: <https://github.com/avaneev/r8brain-free-src>
+- Revision: `8fff6f3db26f14a8f5e8fb871000613673db5753`
+- License: MIT License
+- Copyright (c) 2013-2026 Aleksey Vaneev
+
+Sample rate converter designed by Aleksey Vaneev of Voxengo.
+
+The full license text is included in `LICENSES/MIT-r8brain.txt`.
+
+## SIMDe
+
+- Upstream: <https://github.com/simd-everywhere/simde>
+- Revision: `71fd833d9666141edcd1d3c109a80e228303d8d7` (0.8.2)
+- License: MIT License
+
+SIMDe headers are used for Apple Silicon support in the macOS OBS plugin. The full license text is included in `licenses/SIMDe` of the macOS distribution.
+
+## OBS Studio
+
+- Upstream: <https://github.com/obsproject/obs-studio>
+- Revision: `c17423ce05899ecb93f678601b3feaa8a469b180` (OBS Studio 32.1.2)
+- License: GPL-2.0-or-later
+
+The OBS audio source is built against the public API headers of this revision and dynamically links at runtime to the OBS Studio the user has installed. OBS Studio itself is not bundled. The `COPYING` of the referenced revision and the corresponding source are included in the distribution.
+
+## Inno Setup
+
+- Upstream: <https://jrsoftware.org/isinfo.php>
+- License: Inno Setup License
+
+Inno Setup is used to generate the Windows installer. The full license text is included in `LICENSES/Inno-Setup.txt`.
+
+## Product Names and Trademarks
+
+DawAudioStreamer is not an official product of OBS Project, Discord Inc., Steinberg Media Technologies GmbH, Elgato, or VB-Audio, and does not imply any endorsement, affiliation, or warranty from them. Names and trademarks such as OBS, Discord, JUCE, VST, ASIO, Elgato, and VB-Audio belong to their respective owners. This software does not use Discord's private APIs, private events, or DLL injection.
