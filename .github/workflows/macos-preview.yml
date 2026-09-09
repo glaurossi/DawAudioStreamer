@@ -25,10 +25,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - runner: macos-14
+          - runner: macos-26
             preset: macos-preview-arm
             label: AppleSilicon
-          - runner: macos-13
+          - runner: macos-26-intel
             preset: macos-preview-intel
             label: Intel
 
