@@ -1,7 +1,26 @@
+DawAudioStreamer macOS Preview
+==============================
+
+Supported: Intel or Apple Silicon (M1 / M2 / M3 / M4), macOS 13 or later
+
+1. Close your DAW and OBS.
+2. Ctrl-click Install.command and choose Open.
+3. Insert one DAS Send instance in your DAW's master.
+4. Add DAS Audio (DAW) as a source in OBS.
+
+For Discord, share your DAW application or your full screen.
+macOS built-in audio sharing handles the audio — no mic changes or virtual audio device needed.
+
+To uninstall, close your DAW and OBS, then run Uninstall.command.
+
+macOS may show a security warning on first install.
+
+---
+
 DawAudioStreamer macOSプレビュー版
 ============================
 
-対応：Apple Silicon（M1／M2／M3／M4）、macOS 13以降
+対応：IntelまたはApple Silicon（M1／M2／M3／M4）、macOS 13以降
 
 1. DAWとOBSを終了します。
 2. Install.commandをControlキーを押しながらクリックし、「開く」を選びます。

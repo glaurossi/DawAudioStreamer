@@ -1,4 +1,4 @@
-#define MyAppName "DawAudioStreamer"
+﻿#define MyAppName "DawAudioStreamer"
 #define MyAppVersion "0.4.2"
 #define MyAppFileVersion "0.4.2.0"
 #define MyAppPublisher "yoruhinot"
@@ -18,10 +18,10 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppUrl}
 AppSupportURL={#MyAppSupportUrl}
 AppUpdatesURL={#MyAppUpdatesUrl}
-AppComments=DAWのASIO音声をOBSとDiscordの画面共有へ送ります
+AppComments={cm:AppComments}
 VersionInfoVersion={#MyAppFileVersion}
 VersionInfoProductVersion={#MyAppFileVersion}
-VersionInfoDescription=DawAudioStreamer セットアップ
+VersionInfoDescription=DawAudioStreamer Setup
 VersionInfoCompany={#MyAppPublisher}
 VersionInfoCopyright={#MyAppCopyright}
 DefaultDirName={autopf}\DawAudioStreamer
@@ -41,17 +41,45 @@ CloseApplications=yes
 RestartApplications=no
 SetupLogging=yes
 LicenseFile=..\LICENSES\AGPL-3.0-only.txt
-InfoAfterFile=..\docs\QuickStart.txt
 
 [Languages]
-Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
+Name: "english"; MessagesFile: "compiler:Default.isl"; InfoAfterFile: "..\docs\QuickStart.en.txt"
+Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"; InfoAfterFile: "..\docs\QuickStart.ja.txt"
+
+[CustomMessages]
+english.AppComments=Stream your DAW's ASIO audio to OBS and Discord screen share
+english.IconQuickStart=Quick Start
+english.IconLicense=License and Source
+english.IconUninstall=Uninstall
+english.RunQuickStart=Open Quick Start guide
+english.RunVbCable=Open VB-CABLE setup guide for Discord
+english.VbCableAvailableDesc=VB-CABLE was found
+english.VbCableAvailableMsg=You can use both OBS and Discord.%n%nDawAudioStreamer does not change your default audio device, ASIO settings, or Discord microphone.
+english.VbCableNeededDesc=VB-CABLE is required for Discord
+english.VbCableCheckFailedMsg=Installation will continue. OBS works without VB-CABLE.%n%nTo use Discord screen share audio, VB-CABLE is required.%nClick Finish to open the setup guide. Uncheck it on the final screen if you don't need it.
+english.VbCableNotFoundMsg=VB-CABLE was not found on this PC.%n%n- OBS works as-is.%n- VB-CABLE is required for Discord screen share audio.%n- This installer does not change third-party drivers or default audio settings.%n%nClick Finish to open the setup guide. Uncheck it on the final screen if you don't need it.
+english.VbCablePageTitle=Checking audio for Discord
+
+japanese.AppComments=DAWのASIO音声をOBSとDiscordの画面共有へ送ります
+japanese.IconQuickStart=クイックスタート
+japanese.IconLicense=ライセンスとソース
+japanese.IconUninstall=アンインストール
+japanese.RunQuickStart=クイックスタートを開く
+japanese.RunVbCable=Discord用のVB-CABLE導入手順を開く
+japanese.VbCableAvailableDesc=VB-CABLEが見つかりました
+japanese.VbCableAvailableMsg=OBSとDiscordの両方を使用できます。%n%nDawAudioStreamerは既定の音声デバイス、ASIO設定、Discordのマイク設定を変更しません。
+japanese.VbCableNeededDesc=Discordを使う場合はVB-CABLEを追加してください
+japanese.VbCableCheckFailedMsg=インストールは続行できます。OBSはそのまま使用できます。%n%nDiscordで音声を共有するにはVB-CABLEが必要です。%n完了を押すと詳しい導入手順を開きます。不要な場合は完了画面でチェックを外せます。
+japanese.VbCableNotFoundMsg=このPCではVB-CABLEが見つかりませんでした。%n%n・OBSはこのまま使用できます。%n・Discordの画面共有音声にはVB-CABLEが必要です。%n・本セットアップは第三者ドライバーや既定の音声設定を変更しません。%n%n完了を押すと詳しい導入手順を開きます。不要な場合は完了画面でチェックを外せます。
+japanese.VbCablePageTitle=Discord用音声の確認
 
 [Files]
 Source: "{#BuildRoot}\plugins\send-vst3\Release\das-virtual-audio-check.exe"; DestDir: "{tmp}"; Flags: dontcopy
 Source: "{#BuildRoot}\plugins\send-vst3\DasSend_artefacts\Release\VST3\DAS Send.vst3\*"; DestDir: "{commoncf64}\VST3\DAS Send.vst3"; Flags: ignoreversion recursesubdirs createallsubdirs restartreplace uninsrestartdelete
 Source: "{#BuildRoot}\plugins\obs-source\Release\das-obs-source.dll"; DestDir: "{commonappdata}\obs-studio\plugins\das-obs-source\bin\64bit"; Flags: ignoreversion restartreplace uninsrestartdelete
 Source: "..\plugins\obs-source\data\locale\ja-JP.ini"; DestDir: "{commonappdata}\obs-studio\plugins\das-obs-source\data\locale"; Flags: ignoreversion restartreplace uninsrestartdelete
-Source: "..\docs\QuickStart.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\docs\QuickStart.en.txt"; DestDir: "{app}"; DestName: "QuickStart.txt"; Languages: english; Flags: ignoreversion
+Source: "..\docs\QuickStart.ja.txt"; DestDir: "{app}"; DestName: "QuickStart.txt"; Languages: japanese; Flags: ignoreversion
 Source: "..\README.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\CHANGELOG.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
@@ -70,13 +98,13 @@ Source: "{#BuildRoot}\_deps\obs_headers-src\COPYING"; DestDir: "{app}\licenses";
 Source: "{#SourceArchive}"; DestDir: "{app}\source"; Flags: ignoreversion
 
 [Icons]
-Name: "{group}\クイックスタート"; Filename: "{app}\QuickStart.txt"
-Name: "{group}\ライセンスとソース"; Filename: "{app}\LICENSE"
-Name: "{group}\アンインストール"; Filename: "{uninstallexe}"
+Name: "{group}\{cm:IconQuickStart}"; Filename: "{app}\QuickStart.txt"
+Name: "{group}\{cm:IconLicense}"; Filename: "{app}\LICENSE"
+Name: "{group}\{cm:IconUninstall}"; Filename: "{uninstallexe}"
 
 [Run]
-Filename: "{app}\QuickStart.txt"; Description: "クイックスタートを開く"; Flags: postinstall shellexec skipifsilent nowait
-Filename: "{#VbCableUrl}"; Description: "Discord用のVB-CABLE導入手順を開く"; Flags: postinstall shellexec skipifsilent; Check: ShouldOfferVbCable
+Filename: "{app}\QuickStart.txt"; Description: "{cm:RunQuickStart}"; Flags: postinstall shellexec skipifsilent nowait
+Filename: "{#VbCableUrl}"; Description: "{cm:RunVbCable}"; Flags: postinstall shellexec skipifsilent; Check: ShouldOfferVbCable
 
 [Code]
 var
@@ -113,30 +141,20 @@ begin
 
   if VirtualAudioAvailable then
   begin
-    PageDescription := 'VB-CABLEが見つかりました';
-    PageMessage :=
-      'OBSとDiscordの両方を使用できます。' + #13#10 + #13#10 +
-      'DawAudioStreamerは既定の音声デバイス、ASIO設定、Discordのマイク設定を変更しません。';
+    PageDescription := CustomMessage('VbCableAvailableDesc');
+    PageMessage := CustomMessage('VbCableAvailableMsg');
   end
   else if VirtualAudioCheckFailed then
   begin
-    PageDescription := 'Discordを使う場合はVB-CABLEを追加してください';
-    PageMessage :=
-      'インストールは続行できます。OBSはそのまま使用できます。' + #13#10 + #13#10 +
-      'Discordで音声を共有するにはVB-CABLEが必要です。' + #13#10 +
-      '完了を押すと詳しい導入手順を開きます。不要な場合は完了画面でチェックを外せます。';
+    PageDescription := CustomMessage('VbCableNeededDesc');
+    PageMessage := CustomMessage('VbCableCheckFailedMsg');
   end
   else
   begin
-    PageDescription := 'Discordを使う場合はVB-CABLEを追加してください';
-    PageMessage :=
-      'このPCではVB-CABLEが見つかりませんでした。' + #13#10 + #13#10 +
-      '・OBSはこのまま使用できます。' + #13#10 +
-      '・Discordの画面共有音声にはVB-CABLEが必要です。' + #13#10 +
-      '・本セットアップは第三者ドライバーや既定の音声設定を変更しません。' + #13#10 + #13#10 +
-      '完了を押すと詳しい導入手順を開きます。不要な場合は完了画面でチェックを外せます。';
+    PageDescription := CustomMessage('VbCableNeededDesc');
+    PageMessage := CustomMessage('VbCableNotFoundMsg');
   end;
 
-  VirtualAudioPage := CreateOutputMsgPage(wpLicense, 'Discord用音声の確認',
+  VirtualAudioPage := CreateOutputMsgPage(wpLicense, CustomMessage('VbCablePageTitle'),
                                            PageDescription, PageMessage);
 end;
