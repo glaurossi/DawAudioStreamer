@@ -1,11 +1,9 @@
-# プライバシー
+# Privacy
 
-DawAudioStreamerは、テレメトリ、利用統計、クラッシュレポート、自動更新、広告、
-アカウント機能を持たず、製品自身からインターネットへ通信しません。
+[日本語](PRIVACY.ja.md)
 
-処理するデータは、同じWindowsユーザーセッション内でDAWからOBSとDiscord共有用音声セッションへ
-渡すリアルタイム音声です。音声をファイルへ保存せず、製品の共有メモリはプロセス終了時に
-破棄されます。画面映像の取得と配信はDiscord自身が行い、本製品は映像を読み取りません。
+DawAudioStreamer has no telemetry, usage analytics, crash reporting, auto-update, ads, or account features. The product itself makes no network connections.
 
-OBSやDiscordへ実際に配信したデータには、それぞれのサービスのプライバシーポリシーが適用されます。
-DawAudioStreamerはDiscordのマイク設定、DAWのASIO設定、Windowsの既定音声デバイスを変更しません。
+The only data it handles is real-time audio passed within the same Windows user session — from your DAW to the OBS and Discord audio sessions. Audio is never written to disk, and the shared memory used by the product is released when the process exits. Screen capture and streaming are handled entirely by Discord; this product does not read video frames.
+
+Any data you actually stream to OBS or Discord is subject to their respective privacy policies. DawAudioStreamer does not modify Discord's microphone settings, your DAW's ASIO configuration, or Windows default audio devices.

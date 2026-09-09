@@ -1,13 +1,15 @@
-# ビルド
+# Build
 
-## 必要なもの
+[日本語](development.ja.md)
+
+## Requirements
 
 - Windows x64
-- Visual Studio 2026（C++デスクトップ開発、Windows SDK）
-- CMake 3.25以降
-- Inno Setup 6（インストーラーを作る場合）
+- Visual Studio 2026 (Desktop development with C++, Windows SDK)
+- CMake 3.25 or later
+- Inno Setup 6 (only needed to build the installer)
 
-## 手順
+## Steps
 
 ```powershell
 cmake --preset windows-msvc-release
@@ -15,18 +17,33 @@ cmake --build --preset windows-msvc-release
 ctest --preset windows-msvc-release
 ```
 
-インストーラーも作る場合：
+To also build the installer:
 
 ```powershell
 cmake --build build/windows-msvc-release --config Release --target das_installer
 ```
 
-主な生成物：
+Key build outputs:
 
-- VST3：`build/windows-msvc-release/plugins/send-vst3/DasSend_artefacts/Release/VST3/DAS Send.vst3`
-- OBSプラグイン：`build/windows-msvc-release/plugins/obs-source/Release/das-obs-source.dll`
-- インストーラー：`build/installer/DawAudioStreamer-Setup-0.4.2.exe`
+- VST3: `build/windows-msvc-release/plugins/send-vst3/DasSend_artefacts/Release/VST3/DAS Send.vst3`
+- OBS plugin: `build/windows-msvc-release/plugins/obs-source/Release/das-obs-source.dll`
+- Installer: `build/installer/DawAudioStreamer-Setup-0.4.2.exe`
 
-使用している依存ライブラリと固定revisionは
-[THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md)に記載しています。Releaseの対応ソースZIPには、
-オフラインで再ビルドできる依存ソースも含まれます。
+## macOS (preview)
+
+- Intel or Apple Silicon Mac, macOS 13 or later
+- Xcode with command line tools (`xcode-select --install`)
+- CMake 3.25 or later
+- OBS Studio (matching your Mac's arch) at `/Applications/OBS.app`
+
+Pick the preset for your arch — you can only build the arch of your installed OBS, since OBS ships no universal `libobs`:
+
+```zsh
+cmake --preset macos-preview-intel   # or macos-preview-arm
+cmake --build --preset macos-preview-intel
+ctest --preset macos-preview-intel
+```
+
+The distributable ZIP is built by `cmake/CreateMacPreviewPackage.cmake` (see the `macos-preview` CI workflow for the exact invocation); it bundles the plugins with `Install.command` / `Uninstall.command`, ad-hoc signed. CI builds both arches on native runners.
+
+Dependencies and their pinned revisions are listed in [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md). The release source ZIP includes offline-rebuildable dependency sources.

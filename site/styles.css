@@ -64,7 +64,7 @@ a:focus-visible, summary:focus-visible { outline: 3px solid var(--focus); outlin
   color: var(--paper);
   background: var(--ink);
   border: 1px solid var(--ink);
-  border-radius: 9999px;
+  border-radius: 35px;
   font-weight: 750;
   text-decoration: none;
 }
@@ -124,9 +124,44 @@ h1 span::before { content: ""; position: absolute; z-index: -1; left: -.03em; ri
 .download-icon { font-size: 23px; line-height: 1; }
 .mac-download { color: var(--ink); background: var(--card); }
 .mac-download:hover { color: var(--paper); background: var(--ink); }
+.mac-picker { position: relative; }
+.mac-picker > summary { justify-content: flex-start; list-style: none; cursor: pointer; transition: color .15s ease, background .15s ease, border-radius .2s ease, border-color .2s ease; }
+.mac-picker > summary::-webkit-details-marker { display: none; }
+.mac-picker-caret { margin-left: auto; transition: transform .2s ease; }
+.mac-picker[open] .mac-picker-caret { transform: rotate(180deg); }
+.mac-picker[open] > summary {
+  color: var(--ink); background: var(--card);
+  border-bottom-color: var(--linen);
+  border-radius: 35px 35px 0 0;
+}
+.mac-picker-menu {
+  position: absolute; left: 0; right: 0; top: 100%; z-index: 5;
+  display: flex; flex-direction: column; gap: 2px; padding: 8px;
+  background: var(--card);
+  border: 1px solid var(--ink); border-top: none;
+  border-radius: 0 0 35px 35px;
+  box-shadow: 0 22px 44px rgba(17, 17, 17, .13);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transform: translateY(-8px); transform-origin: top center;
+  transition: opacity .2s ease, transform .2s ease, visibility .2s;
+}
+.mac-picker[open] .mac-picker-menu {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: translateY(0);
+}
+.mac-arch { display: block; padding: 11px 16px; color: var(--ink); background: transparent; border-radius: 14px; text-decoration: none; transition: color .15s ease, background .15s ease; }
+.mac-arch:last-child { border-bottom-left-radius: 27px; border-bottom-right-radius: 27px; }
+.mac-arch:hover { color: var(--paper); background: var(--ink); }
+.mac-arch strong { display: block; font-size: 15px; }
+.mac-arch small { display: block; margin-top: 2px; opacity: .72; font-size: 11px; }
+@media (prefers-reduced-motion: reduce) {
+  .mac-picker-caret, .mac-picker-menu, .mac-arch, .mac-picker > summary { transition: none; }
+  .mac-picker-menu { transform: none; }
+}
 .platform-facts { margin: 24px 0 0; padding: 20px 0 0 19px; color: var(--graphite); border-top: 1px solid var(--linen); font-size: 15px; line-height: 1.8; }
 .platform-facts strong { display: inline-block; min-width: 88px; color: var(--charcoal); font-size: 12px; letter-spacing: .03em; }
-.install-warning { margin: 18px 0 0; color: var(--attention); font-size: 12px; font-weight: 750; line-height: 1.5; }
+.install-warning { margin: 18px 0 0; color: var(--attention); font-size: 12px; font-weight: 750; line-height: 1.5; transition: opacity .10s ease; }
+.mac-card:has(.mac-picker[open]) .install-warning { opacity: 0; transition-duration: 0s; }
 .card-link { margin-top: auto; padding-top: 22px; }
 
 .setup-section { position: relative; }
@@ -147,7 +182,7 @@ h1 span::before { content: ""; position: absolute; z-index: -1; left: -.03em; ri
 .subheading { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
 .subheading h4, .destination-heading h4 { margin: 0; font-size: 23px; letter-spacing: -.02em; }
 .subheading p, .destination-heading p { margin: 0; color: var(--graphite); font-size: 14px; }
-.daw-list { margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+.daw-list { margin-top: 22px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
 .daw-card { background: var(--card); border: 1px solid var(--linen); border-radius: 10px; }
 .daw-card header { padding: 17px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .daw-card header strong { font-size: 16px; }

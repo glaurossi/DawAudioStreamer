@@ -1,94 +1,88 @@
 # DawAudioStreamer
 
-DAWの音を、ASIOのままOBSとDiscordへ。
+[日本語](README.ja.md)
 
-DawAudioStreamerは、DAWのマスター音声をOBSなどへ送る配信用プラグインです。
-Windows版（VST3）とApple Silicon向けmacOSプレビュー版（AU／VST3）があります。
+Stream your DAW's audio — ASIO and all — to OBS and Discord.
 
-> macOS版はプレビュー版です。配信前に短い録画や限定配信で動作を確認してください。
+DawAudioStreamer is a streaming plugin that routes your DAW's master audio to OBS and Discord screen share without touching your audio interface settings. Available as a VST3 for Windows and as an AU/VST3 preview for Intel and Apple Silicon Macs.
 
-## 先に確認
+> The macOS version is a preview release. Test with a short recording or a private stream before going live.
 
-- **OBSだけで使う：** DawAudioStreamerのインストーラーだけで使えます。
-- **Discordにも音を載せる：** VB-CABLEが必要です。入っていないPCでは、インストール完了時に
-  VB-CABLEの公式ページが開きます。
+## Before you start
 
-macOSでは主にOBS向けに使用します。DiscordはmacOS標準の画面共有音声を利用できるため、
-DawAudioStreamerや仮想オーディオデバイスは不要です。
+- **OBS only:** the DawAudioStreamer installer is all you need.
+- **Discord too:** VB-CABLE is required. If it's not installed, the VB-CABLE download page will open automatically when the installer finishes.
 
-## 使い方
+On macOS, the plugin is primarily for OBS. Discord on macOS can use the system's built-in screen share audio, so no virtual audio device is needed.
 
-### 1. インストール
+## Setup
 
-1. OBS、Discord、DAWを終了します。
-2. [Releases](https://github.com/yoruhinot/DawAudioStreamer/releases)からインストーラーを入手します。
-3. インストーラーを実行します。
-4. DAWのマスターバスの最後へ「DAS Send」を1個挿します。
+### 1. Install
 
-Discordでも使う場合は、開いた[VB-CABLE公式ページ](https://vb-audio.com/Cable/)から
-ドライバーを導入し、案内に従ってWindowsを再起動してください。
+1. Close OBS, Discord, and your DAW.
+2. Download the installer from [Releases](https://github.com/yoruhinot/DawAudioStreamer/releases).
+3. Run the installer.
+4. Insert one instance of **DAS Send** at the end of your DAW's master bus.
+
+If you want Discord support, install the driver from the [VB-CABLE page](https://vb-audio.com/Cable/) that opens at the end of the installer, then restart Windows as prompted.
 
 ### 2. OBS
 
-1. OBSの「ソース」で［＋］を押します。
-2. 「DAS Audio（DAW）」を追加します。
-3. DAWを再生し、OBSの音声ミキサーが動けば完了です。
+1. In OBS, click **+** under Sources.
+2. Add **DAS Audio (DAW)**.
+3. Play something in your DAW — if the OBS audio meter moves, you're done.
 
 ### 3. Discord
 
-1. DAS SendのDiscord欄が緑の `OK` になっていることを確認します。
-2. Discordで［画面を共有］を開きます。
-3. DAWだけを見せるならDAWアプリ、VST画面も見せるなら画面全体を選びます。
+1. Confirm the Discord indicator in DAS Send shows a green `OK`.
+2. In Discord, open **Share Screen**.
+3. Choose your DAW application to share just the DAW, or choose your full screen to include VST windows too.
 
-Discordのマイク設定はそのままで構いません。
+Your Discord microphone settings don't need to change.
 
-## VSTの表示
+## Plugin status display
 
-| 表示 | 対処 |
+| Display | Meaning |
 |---|---|
-| 緑の `OK` | 使用できます。OBS側は音声を受信中です。 |
-| 灰色の `WAIT` | OBSで「DAS Audio（DAW）」を追加してください。 |
-| 黄色の `VB-CABLE` | VB-CABLEを導入してWindowsを再起動してください。 |
-| 黄色の `1 ONLY` | DAS Sendを1個だけ残してください。 |
-| 赤い `!` | OBS、DAWの順に起動し直してください。 |
-| 灰色・文字なし | DAS Sendがバイパスされています。 |
+| Green `OK` | Working — OBS is receiving audio. |
+| Gray `WAIT` | Add **DAS Audio (DAW)** as a source in OBS. |
+| Yellow `VB-CABLE` | Install VB-CABLE and restart Windows. |
+| Yellow `1 ONLY` | Remove extra DAS Send instances — only one allowed. |
+| Red `!` | Restart OBS first, then your DAW. |
+| Gray, no text | DAS Send is bypassed. |
 
-## 音が二重に聞こえる場合
+## Audio doubling
 
-- DAS Sendはマスターバスに1個だけ挿します。
-- OBSでは「DAS Audio（DAW）」と同じ音をデスクトップ音声などから同時に取り込まないでください。
-- DiscordではDAWアプリ共有と画面全体共有を同時に開始しないでください。
+- Insert DAS Send on the master bus once only.
+- In OBS, don't capture the same audio through Desktop Audio alongside DAS Audio (DAW).
+- In Discord, don't start both an application share and a full-screen share at the same time.
 
-## 音質
+## Audio quality
 
-DAS SendはDAWへ戻す音声や音量を変更しません。配信用の音声はステレオ48 kHzへ変換され、
-最後にOBSやDiscord側の設定で圧縮されます。音割れを防ぐため、DAWのマスターは0 dBFS未満にしてください。
+DAS Send does not alter the audio or volume returned to your DAW. The stream output is converted to stereo 48 kHz, then compressed by OBS or Discord according to their own settings. Keep your DAW master below 0 dBFS to avoid clipping.
 
-## 対応環境
+## Requirements
 
 - Windows 11 x64
-- VST3対応の64-bit DAW
+- 64-bit DAW with VST3 support
 - OBS Studio x64
-- Discordデスクトップ版
-- Apple Silicon搭載Mac・macOS 13以降（AU／VST3、プレビュー版）
+- Discord desktop app
+- Intel or Apple Silicon Mac running macOS 13 or later (AU/VST3, preview)
 
-Fender Studio Pro 8、REAPER、Cubaseで動作を確認しています。
+Tested with Fender Studio Pro 8, REAPER, Cubase, and Ableton Live 12.
 
-## アンインストール
+## Uninstall
 
-DAWとOBSを終了し、Windowsの「インストールされているアプリ」からDawAudioStreamerを削除します。
-DAWプロジェクト、OBSシーン、ASIO設定、別途導入した仮想オーディオドライバーは削除されません。
+Close your DAW and OBS, then remove DawAudioStreamer from **Installed apps** in Windows Settings. Your DAW projects, OBS scenes, ASIO settings, and any separately installed virtual audio drivers are not removed.
 
-## ダウンロードと問い合わせ
+## Download & contact
 
-ダウンロードは[GitHub Releases](https://github.com/yoruhinot/DawAudioStreamer/releases)から行ってください。
-インストール時にWindowsまたはmacOSの警告が表示される場合があります。
+Download from [GitHub Releases](https://github.com/yoruhinot/DawAudioStreamer/releases). Windows and macOS may show a security warning on first run.
 
-不具合や要望は[X（@yoruhinot）](https://x.com/yoruhinot)または[Issues](https://github.com/yoruhinot/DawAudioStreamer/issues)へお願いします。
+For bugs or feature requests, reach out on [X (@yoruhinot)](https://x.com/yoruhinot) or open an [Issue](https://github.com/yoruhinot/DawAudioStreamer/issues).
 
-## ライセンス
+## License
 
-ライセンスは[LICENSE](LICENSE)、第三者ソフトウェアの表示は
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)を参照してください。
+See [LICENSE](LICENSE) for the license and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for third-party attributions.
 
-ソースからビルドする場合は[ビルド手順](docs/development.md)を参照してください。
+To build from source, see [build instructions](docs/development.md).

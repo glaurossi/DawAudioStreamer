@@ -1,9 +1,18 @@
 const downloadButton = document.querySelector("#windows-download");
 const downloadTitle = document.querySelector("#download-title");
 const versionLabel = document.querySelector("#download-version");
-const macDownloadButton = document.querySelector("#mac-download");
-const macDownloadTitle = document.querySelector("#mac-download-title");
-const macVersionLabel = document.querySelector("#mac-download-version");
+const macPicker = document.querySelector("#mac-download");
+const macDownloadArm = document.querySelector("#mac-download-arm");
+const macDownloadIntel = document.querySelector("#mac-download-intel");
+
+if (macPicker) {
+  document.addEventListener("click", (event) => {
+    if (macPicker.open && !macPicker.contains(event.target)) macPicker.open = false;
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && macPicker.open) macPicker.open = false;
+  });
+}
 const demoVideo = document.querySelector("#demo-video");
 const demoPlay = document.querySelector("#demo-play");
 
@@ -20,6 +29,8 @@ if (demoVideo && demoPlay) {
   demoVideo.addEventListener("ended", () => { demoPlay.hidden = false; });
 }
 
+const isEn = document.documentElement.lang === "en";
+
 fetch("https://api.github.com/repos/yoruhinot/DawAudioStreamer/releases?per_page=10", {
   headers: { Accept: "application/vnd.github+json" }
 })
@@ -34,26 +45,26 @@ fetch("https://api.github.com/repos/yoruhinot/DawAudioStreamer/releases?per_page
     const installer = release?.assets.find((asset) => asset.name.toLowerCase().endsWith(".exe"));
     if (release && installer) {
       downloadButton.href = installer.browser_download_url;
-      downloadTitle.textContent = release.prerelease
-        ? "Windowsベータ版をダウンロード"
-        : "Windows版をダウンロード";
-      versionLabel.textContent = `${release.tag_name}・Windows 11・x64`;
+      downloadTitle.textContent = isEn
+        ? (release.prerelease ? "Download Windows Beta" : "Download for Windows")
+        : (release.prerelease ? "Windowsベータ版をダウンロード" : "Windows版をダウンロード");
+      versionLabel.textContent = isEn
+        ? `${release.tag_name} · Windows 11 · x64`
+        : `${release.tag_name}・Windows 11・x64`;
     }
 
-    const macRelease = releases.find((item) =>
-      !item.draft && item.assets.some((asset) => {
-        const name = asset.name.toLowerCase();
-        return name.endsWith(".zip") && name.includes("macos-applesilicon");
-      })
-    );
-    const macPackage = macRelease?.assets.find((asset) => {
+    const findMacAsset = (item, arch) => item.assets.find((asset) => {
       const name = asset.name.toLowerCase();
-      return name.endsWith(".zip") && name.includes("macos-applesilicon");
+      return name.endsWith(".zip") && name.includes(arch);
     });
-    if (macRelease && macPackage) {
-      macDownloadButton.href = macPackage.browser_download_url;
-      macDownloadTitle.textContent = "macOSプレビュー版をダウンロード";
-      macVersionLabel.textContent = `${macRelease.tag_name}・macOS 13以降・Apple Silicon`;
+    const macRelease = releases.find((item) =>
+      !item.draft && (findMacAsset(item, "macos-applesilicon") || findMacAsset(item, "macos-intel"))
+    );
+    if (macRelease) {
+      const arm = findMacAsset(macRelease, "macos-applesilicon");
+      const intel = findMacAsset(macRelease, "macos-intel");
+      if (arm) macDownloadArm.href = arm.browser_download_url;
+      if (intel) macDownloadIntel.href = intel.browser_download_url;
     }
   })
   .catch(() => {

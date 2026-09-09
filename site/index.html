@@ -41,6 +41,7 @@
       <a href="#setup">セットアップ</a>
       <a href="#trouble">困ったとき</a>
       <a href="https://github.com/yoruhinot/DawAudioStreamer">GitHub <span aria-hidden="true">↗</span></a>
+      <a href="en/">English</a>
     </nav>
   </header>
 
@@ -96,10 +97,21 @@
           <div class="platform-card-header"><h3>macOS</h3><span class="stage-badge">プレビュー版</span></div>
           <p class="platform-summary">DAWの音をOBSへ送る用途向けです。Discordには通常不要です。</p>
           <div class="purpose-chips" aria-label="macOS版の用途"><span class="obs-chip">OBS</span></div>
-          <a class="download-button mac-download" id="mac-download" href="https://github.com/yoruhinot/DawAudioStreamer/releases/download/v0.4.1-macos-preview.1/DawAudioStreamer-0.4.1-macos-preview.1-macOS-AppleSilicon.zip">
-            <span class="download-icon" aria-hidden="true">↓</span><span><strong id="mac-download-title">macOSプレビュー版をダウンロード</strong><small id="mac-download-version">macOS 13以降・Apple Silicon</small></span>
-          </a>
-          <ul class="platform-facts"><li><strong>対応環境</strong>macOS 13以降・Apple Silicon</li><li><strong>プラグイン</strong>AU／VST3</li></ul>
+          <details class="mac-picker" id="mac-download">
+            <summary class="download-button mac-download">
+              <span class="download-icon" aria-hidden="true">↓</span><span><strong>macOSプレビュー版をダウンロード</strong><small>お使いのMacを選択</small></span>
+              <span class="mac-picker-caret" aria-hidden="true">▾</span>
+            </summary>
+            <div class="mac-picker-menu">
+              <a class="mac-arch" id="mac-download-arm" href="https://github.com/yoruhinot/DawAudioStreamer/releases/download/v0.4.1-macos-preview.1/DawAudioStreamer-0.4.1-macos-preview.1-macOS-AppleSilicon.zip">
+                <strong>Apple Silicon</strong><small>M1〜M4・macOS 13以降</small>
+              </a>
+              <a class="mac-arch" id="mac-download-intel" href="https://github.com/yoruhinot/DawAudioStreamer/releases/download/v0.4.1-macos-preview.1/DawAudioStreamer-0.4.1-macos-preview.1-macOS-Intel.zip">
+                <strong>Intel</strong><small>x64・macOS 13以降</small>
+              </a>
+            </div>
+          </details>
+          <ul class="platform-facts"><li><strong>対応環境</strong>macOS 13以降・Intel／Apple Silicon</li><li><strong>プラグイン</strong>AU／VST3</li></ul>
           <p class="install-warning">初回インストール時にmacOSの警告が表示される場合があります。</p>
           <a class="card-link" href="#macos">macOSの手順へ <span aria-hidden="true">↓</span></a>
         </article>
@@ -120,7 +132,7 @@
           <section class="install-card" id="macos">
             <p class="platform-label">macOS 13以降</p><h4>Install.commandを実行</h4>
             <p>ZIPを展開し、「Install.command」をControlキーを押しながらクリックして［開く］を選びます。</p>
-            <small>対応環境：macOS 13以降・Apple Silicon。</small>
+            <small>対応環境：macOS 13以降・Intel／Apple Silicon。</small>
           </section>
         </div>
 
@@ -131,6 +143,7 @@
             <article class="daw-card"><header><strong>Fender Studio Pro 8</strong><span>動作確認済み</span></header><p>コンソールの「メイン」チャンネルにある、インサートの最後へ追加します。</p></article>
             <article class="daw-card"><header><strong>Cubase</strong><span>動作確認済み</span></header><p>MixConsoleの「Stereo Out」にある、Insertsの最後へ追加します。</p></article>
             <article class="daw-card"><header><strong>REAPER</strong><span>動作確認済み</span></header><p>MASTERトラックの［FX］を開き、エフェクト列の最後へ追加します。</p></article>
+            <article class="daw-card"><header><strong>Ableton Live 12</strong><span>動作確認済み</span></header><p>Masterトラックの「Audio Effects」チェーンの最後へ追加します。</p></article>
           </div>
         </div>
 
