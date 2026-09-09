@@ -49,9 +49,7 @@ std::wstring audioEndpointName(IMMDevice* device) {
 bool isSilentVirtualEndpoint(std::wstring name) {
   std::transform(name.begin(), name.end(), name.begin(),
                  [](const wchar_t value) { return static_cast<wchar_t>(std::towlower(value)); });
-  return name.find(L"elgato virtual audio") != std::wstring::npos ||
-         name.find(L"vb-audio virtual cable") != std::wstring::npos ||
-         name.find(L"cable input") != std::wstring::npos;
+  return name.find(L"vb-audio virtual cable") != std::wstring::npos;
 }
 
 bool discordBridgeSessionIsSafe() {

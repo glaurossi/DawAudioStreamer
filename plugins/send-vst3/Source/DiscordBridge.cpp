@@ -186,8 +186,8 @@ bool DiscordBridge::runAudioClient() noexcept {
   ComPtr<IMMDevice> endpoint;
   if (!das::discord::findSupportedVirtualAudioEndpoint(enumerator.Get(),
                                                         endpoint.GetAddressOf())) {
-    // Rendering to a physical fallback makes the ASIO signal audible twice.
-    // Refuse it and guide the user to a supported silent virtual endpoint.
+    // Do not fall back to physical outputs or unrelated virtual mixers.
+    // Leave Discord idle until VB-CABLE is available; OBS runs independently.
     state_.store(State::virtualOutputRequired, std::memory_order_relaxed);
     return false;
   }

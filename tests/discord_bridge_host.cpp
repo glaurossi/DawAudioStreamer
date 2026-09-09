@@ -85,7 +85,7 @@ public:
 private:
   void timerCallback() override {
     if (bridge_ && bridge_->state() == DiscordBridge::State::virtualOutputRequired) {
-      status_.setText(japanese("× 対応する無音仮想出力が必要です"),
+      status_.setText(japanese("× VB-CABLEが必要です"),
                       juce::dontSendNotification);
       status_.setColour(juce::Label::textColourId, juce::Colour(0xffffb86b));
     } else if (!bridge_ || bridge_->state() != DiscordBridge::State::ready) {

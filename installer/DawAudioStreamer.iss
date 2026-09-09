@@ -113,7 +113,7 @@ begin
 
   if VirtualAudioAvailable then
   begin
-    PageDescription := '対応する無音仮想出力が見つかりました';
+    PageDescription := 'VB-CABLEが見つかりました';
     PageMessage :=
       'OBSとDiscordの両方を使用できます。' + #13#10 + #13#10 +
       'DawAudioStreamerは既定の音声デバイス、ASIO設定、Discordのマイク設定を変更しません。';
@@ -130,7 +130,7 @@ begin
   begin
     PageDescription := 'Discordを使う場合はVB-CABLEを追加してください';
     PageMessage :=
-      'このPCでは対応する無音仮想出力が見つかりませんでした。' + #13#10 + #13#10 +
+      'このPCではVB-CABLEが見つかりませんでした。' + #13#10 + #13#10 +
       '・OBSはこのまま使用できます。' + #13#10 +
       '・Discordの画面共有音声にはVB-CABLEが必要です。' + #13#10 +
       '・本セットアップは第三者ドライバーや既定の音声設定を変更しません。' + #13#10 + #13#10 +
