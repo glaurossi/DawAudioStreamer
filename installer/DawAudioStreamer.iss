@@ -1,13 +1,13 @@
 #define MyAppName "DawAudioStreamer"
-#define MyAppVersion "0.4.1"
-#define MyAppFileVersion "0.4.1.0"
+#define MyAppVersion "0.4.2"
+#define MyAppFileVersion "0.4.2.0"
 #define MyAppPublisher "yoruhinot"
 #define MyAppCopyright "Copyright (c) 2026 yoruhinot"
 #define MyAppUrl "https://github.com/yoruhinot/DawAudioStreamer"
 #define MyAppSupportUrl "https://github.com/yoruhinot/DawAudioStreamer/issues"
 #define MyAppUpdatesUrl "https://github.com/yoruhinot/DawAudioStreamer/releases"
 #define BuildRoot "..\build\windows-msvc-release"
-#define SourceArchive "..\build\source\DawAudioStreamer-0.4.1-source.zip"
+#define SourceArchive "..\build\source\DawAudioStreamer-0.4.2-source.zip"
 #define VbCableUrl "https://yoruhinot.github.io/DawAudioStreamer/#vbcable"
 
 [Setup]
