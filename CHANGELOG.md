@@ -1,5 +1,9 @@
 # 変更履歴
 
+## [0.4.2] - 2026-09-09
+
+- WindowsのDiscord用出力をVB-CABLEに限定し、Wave Linkなどへ意図せず音声が送られる問題を修正
+
 ## [0.4.1] - 2026-09-07
 
 - プラグインの状態表示を、短い単語と記号で分かるデザインに変更
@@ -40,3 +44,4 @@ VB-CABLEの公式ページを開けます。
 [0.4.0-beta.3]: https://github.com/yoruhinot/DawAudioStreamer/releases/tag/v0.4.0-beta.3
 [0.4.0]: https://github.com/yoruhinot/DawAudioStreamer/releases/tag/v0.4.0
 [0.4.1]: https://github.com/yoruhinot/DawAudioStreamer/releases/tag/v0.4.1
+[0.4.2]: https://github.com/yoruhinot/DawAudioStreamer/releases/tag/v0.4.2

@@ -1,13 +1,13 @@
 #define MyAppName "DawAudioStreamer"
-#define MyAppVersion "0.4.1"
-#define MyAppFileVersion "0.4.1.0"
+#define MyAppVersion "0.4.2"
+#define MyAppFileVersion "0.4.2.0"
 #define MyAppPublisher "yoruhinot"
 #define MyAppCopyright "Copyright (c) 2026 yoruhinot"
 #define MyAppUrl "https://github.com/yoruhinot/DawAudioStreamer"
 #define MyAppSupportUrl "https://github.com/yoruhinot/DawAudioStreamer/issues"
 #define MyAppUpdatesUrl "https://github.com/yoruhinot/DawAudioStreamer/releases"
 #define BuildRoot "..\build\windows-msvc-release"
-#define SourceArchive "..\build\source\DawAudioStreamer-0.4.1-source.zip"
+#define SourceArchive "..\build\source\DawAudioStreamer-0.4.2-source.zip"
 #define VbCableUrl "https://yoruhinot.github.io/DawAudioStreamer/#vbcable"
 
 [Setup]
@@ -113,7 +113,7 @@ begin
 
   if VirtualAudioAvailable then
   begin
-    PageDescription := '対応する無音仮想出力が見つかりました';
+    PageDescription := 'VB-CABLEが見つかりました';
     PageMessage :=
       'OBSとDiscordの両方を使用できます。' + #13#10 + #13#10 +
       'DawAudioStreamerは既定の音声デバイス、ASIO設定、Discordのマイク設定を変更しません。';
@@ -130,7 +130,7 @@ begin
   begin
     PageDescription := 'Discordを使う場合はVB-CABLEを追加してください';
     PageMessage :=
-      'このPCでは対応する無音仮想出力が見つかりませんでした。' + #13#10 + #13#10 +
+      'このPCではVB-CABLEが見つかりませんでした。' + #13#10 + #13#10 +
       '・OBSはこのまま使用できます。' + #13#10 +
       '・Discordの画面共有音声にはVB-CABLEが必要です。' + #13#10 +
       '・本セットアップは第三者ドライバーや既定の音声設定を変更しません。' + #13#10 + #13#10 +

@@ -24,9 +24,9 @@ bool isSupportedVirtualAudioEndpointName(const std::wstring_view name) noexcept 
   std::transform(lower.begin(), lower.end(), lower.begin(), [](const wchar_t value) {
     return static_cast<wchar_t>(std::towlower(value));
   });
-  return lower.find(L"elgato virtual audio") != std::wstring::npos ||
-         lower.find(L"vb-audio virtual cable") != std::wstring::npos ||
-         lower.find(L"cable input") != std::wstring::npos;
+  // Require VB-CABLE's driver label. A generic "CABLE Input" name or another
+  // virtual mixer can route the shared audio somewhere the user did not intend.
+  return lower.find(L"vb-audio virtual cable") != std::wstring::npos;
 }
 
 #if defined(_WIN32)

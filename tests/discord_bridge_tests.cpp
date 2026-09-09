@@ -7,6 +7,8 @@
 #include <array>
 #include <chrono>
 #include <cstddef>
+#include <iostream>
+#include <string_view>
 #include <thread>
 
 int main() {
@@ -19,8 +21,34 @@ int main() {
   if (bridge.state() != DiscordBridge::State::stopped) return 3;
   if (!das::discord::isSupportedVirtualAudioEndpointName(
           L"CABLE Input (VB-Audio Virtual Cable)")) return 4;
-  if (!das::discord::isSupportedVirtualAudioEndpointName(L"Elgato Virtual Audio")) return 5;
+  if (das::discord::isSupportedVirtualAudioEndpointName(L"Elgato Virtual Audio")) return 5;
   if (das::discord::isSupportedVirtualAudioEndpointName(L"Speakers (Audio Interface)")) return 6;
+
+  // Accept the VB-CABLE driver marker, including multichannel and renamed endpoints.
+  constexpr std::wstring_view accepted[] {
+      L"CABLE Input (VB-Audio Virtual Cable)",
+      L"CABLE In 16 Ch (VB-Audio Virtual Cable)",
+      L"配信用 (VB-Audio Virtual Cable)",
+      L"cable input (VB-AUDIO VIRTUAL CABLE)"};
+  for (const auto name : accepted) {
+    if (!das::discord::isSupportedVirtualAudioEndpointName(name)) {
+      std::wcerr << L"VB-CABLE endpoint rejected: " << name << L'\n';
+      return 9;
+    }
+  }
+  // A generic "CABLE Input" name must not opt an unrelated device into routing.
+  constexpr std::wstring_view rejected[] {
+      L"", L"Elgato Virtual Audio", L"Wave Link Music (Elgato Virtual Audio)",
+      L"AKG C44 (Elgato Virtual Audio)", L"CABLE Input (Elgato Virtual Audio)",
+      L"CABLE Input", L"CABLE Input (USB Audio Device)",
+      L"VoiceMeeter Input (VB-Audio VoiceMeeter VAIO)",
+      L"Speakers (Audio Interface)", L"Microphone (AKG C44)"};
+  for (const auto name : rejected) {
+    if (das::discord::isSupportedVirtualAudioEndpointName(name)) {
+      std::wcerr << L"Non-VB-CABLE endpoint accepted: " << name << L'\n';
+      return 10;
+    }
+  }
 
 #if defined(_WIN32)
   std::array<float, 64 * 2> silence {};
@@ -31,7 +59,7 @@ int main() {
     static_cast<void>(ring.write(silence, 64));
     const auto state = bridge.state();
     if (state == DiscordBridge::State::virtualOutputRequired) {
-      // 仮想出力がないPCでは、物理出力へフォールバックしないことが安全要件。
+      // VB-CABLEがないPCでは、他の仮想・物理出力へフォールバックしない。
       reachedTerminalState = bridge.renderedFrames() == 0;
       break;
     }
