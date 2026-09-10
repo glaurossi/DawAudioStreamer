@@ -2,12 +2,13 @@
 set -euo pipefail
 
 SCRIPT_DIR="${0:A:h}"
+source "${SCRIPT_DIR}/Language.zsh"
 PAYLOAD_DIR="${SCRIPT_DIR}/payload"
 VST3_TARGET="${HOME}/Library/Audio/Plug-Ins/VST3/DAS Send.vst3"
 AU_TARGET="${HOME}/Library/Audio/Plug-Ins/Components/DAS Send.component"
 OBS_TARGET="${HOME}/Library/Application Support/obs-studio/plugins/das-obs-source.plugin"
 
-if [[ "${LANG:-}" == ja_* ]]; then
+if [[ "${DAS_LANGUAGE}" == ja ]]; then
   print "DawAudioStreamer macOSプレビュー版をインストールします。"
   print "DAWとOBSを終了してから続けてください。"
   print
@@ -20,7 +21,7 @@ fi
 if [[ ! -d "${PAYLOAD_DIR}/DAS Send.vst3" ||
       ! -d "${PAYLOAD_DIR}/DAS Send.component" ||
       ! -d "${PAYLOAD_DIR}/das-obs-source.plugin" ]]; then
-  if [[ "${LANG:-}" == ja_* ]]; then
+  if [[ "${DAS_LANGUAGE}" == ja ]]; then
     print -u2 "必要なファイルが見つかりません。ZIPを展開してから実行してください。"
     read -k 1 "?何かキーを押すと閉じます。"
   else
@@ -40,7 +41,7 @@ rm -rf "${VST3_TARGET}" "${AU_TARGET}" "${OBS_TARGET}"
 /usr/bin/killall -u "${USER}" AudioComponentRegistrar 2>/dev/null || true
 
 print
-if [[ "${LANG:-}" == ja_* ]]; then
+if [[ "${DAS_LANGUAGE}" == ja ]]; then
   print "インストールが完了しました。"
   print "1. DAWのマスターへ「DAS Send」を1個挿します。"
   print "2. OBSのソースへ「DAS Audio（DAW）」を追加します。"

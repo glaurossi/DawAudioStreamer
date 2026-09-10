@@ -8,7 +8,6 @@
 #define MyAppUpdatesUrl "https://github.com/yoruhinot/DawAudioStreamer/releases"
 #define BuildRoot "..\build\windows-msvc-release"
 #define SourceArchive "..\build\source\DawAudioStreamer-0.4.2-source.zip"
-#define VbCableUrl "https://yoruhinot.github.io/DawAudioStreamer/#vbcable"
 
 [Setup]
 AppId={{A2AB3F48-3BA4-46A2-9AE8-E46A6D107BA3}
@@ -40,6 +39,9 @@ UninstallDisplayIcon={uninstallexe}
 CloseApplications=yes
 RestartApplications=no
 SetupLogging=yes
+LanguageDetectionMethod=uilanguage
+ShowLanguageDialog=yes
+UsePreviousLanguage=yes
 LicenseFile=..\LICENSES\AGPL-3.0-only.txt
 
 [Languages]
@@ -53,6 +55,7 @@ english.IconLicense=License and Source
 english.IconUninstall=Uninstall
 english.RunQuickStart=Open Quick Start guide
 english.RunVbCable=Open VB-CABLE setup guide for Discord
+english.VbCableUrl=https://yoruhinot.github.io/DawAudioStreamer/en/?lang=en#vbcable
 english.VbCableAvailableDesc=VB-CABLE was found
 english.VbCableAvailableMsg=You can use both OBS and Discord.%n%nDawAudioStreamer does not change your default audio device, ASIO settings, or Discord microphone.
 english.VbCableNeededDesc=VB-CABLE is required for Discord
@@ -66,6 +69,7 @@ japanese.IconLicense=ライセンスとソース
 japanese.IconUninstall=アンインストール
 japanese.RunQuickStart=クイックスタートを開く
 japanese.RunVbCable=Discord用のVB-CABLE導入手順を開く
+japanese.VbCableUrl=https://yoruhinot.github.io/DawAudioStreamer/?lang=ja#vbcable
 japanese.VbCableAvailableDesc=VB-CABLEが見つかりました
 japanese.VbCableAvailableMsg=OBSとDiscordの両方を使用できます。%n%nDawAudioStreamerは既定の音声デバイス、ASIO設定、Discordのマイク設定を変更しません。
 japanese.VbCableNeededDesc=Discordを使う場合はVB-CABLEを追加してください
@@ -104,7 +108,7 @@ Name: "{group}\{cm:IconUninstall}"; Filename: "{uninstallexe}"
 
 [Run]
 Filename: "{app}\QuickStart.txt"; Description: "{cm:RunQuickStart}"; Flags: postinstall shellexec skipifsilent nowait
-Filename: "{#VbCableUrl}"; Description: "{cm:RunVbCable}"; Flags: postinstall shellexec skipifsilent; Check: ShouldOfferVbCable
+Filename: "{cm:VbCableUrl}"; Description: "{cm:RunVbCable}"; Flags: postinstall shellexec skipifsilent; Check: ShouldOfferVbCable
 
 [Code]
 var

@@ -35,6 +35,7 @@ file(COPY "${vst3}" "${au}" "${obs}" DESTINATION "${payload_root}")
 file(COPY
   "${source_root}/installer/macos/Install.command"
   "${source_root}/installer/macos/Uninstall.command"
+  "${source_root}/installer/macos/Language.zsh"
   "${source_root}/installer/macos/README-macOS.txt"
   DESTINATION "${package_root}")
 file(CHMOD
