@@ -133,3 +133,16 @@ test('Both HTML pages load language selection and link to published Mac packages
     assert.match(html, /href="(?:\.\.\/|en\/)\?lang=(?:ja|en)"/);
   }
 });
+
+test('Each language uses its own walkthrough video and poster', () => {
+  for (const [filename, prefix, suffix] of [['index.html', '', ''], ['en/index.html', '../', '-en']]) {
+    const html = fs.readFileSync(path.join(site, filename), 'utf8');
+    const video = `das-demo${suffix}.mp4`;
+    const poster = `demo-poster${suffix}.webp`;
+    assert.ok(html.includes(`<source src="${prefix}${video}" type="video/mp4">`));
+    assert.ok(html.includes(`href="${prefix}${video}"`));
+    assert.ok(html.includes(`poster="${prefix}${poster}"`));
+    assert.ok(fs.statSync(path.join(site, video)).size > 0);
+    assert.ok(fs.statSync(path.join(site, poster)).size > 0);
+  }
+});
