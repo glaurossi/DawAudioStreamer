@@ -1,9 +1,18 @@
 cmake_minimum_required(VERSION 3.25)
 
-project(DawAudioStreamer VERSION 0.4.2 LANGUAGES CXX)
+project(DawAudioStreamer VERSION 0.4.3 LANGUAGES CXX)
 
-set(DAS_DISPLAY_VERSION "0.4.2" CACHE STRING
+set(DAS_DISPLAY_VERSION "0.4.3" CACHE STRING
     "Public version shown to users and used in release artifact names")
+set(DAS_COMPONENT_VERSION "${PROJECT_VERSION}" CACHE STRING
+    "Numeric x.y.z version embedded in built components")
+if(DAS_COMPONENT_VERSION MATCHES "^([0-9]+)\\.([0-9]+)\\.([0-9]+)$")
+  set(DAS_COMPONENT_VERSION_MAJOR "${CMAKE_MATCH_1}")
+  set(DAS_COMPONENT_VERSION_MINOR "${CMAKE_MATCH_2}")
+  set(DAS_COMPONENT_VERSION_PATCH "${CMAKE_MATCH_3}")
+else()
+  message(FATAL_ERROR "DAS_COMPONENT_VERSION must be a numeric x.y.z version")
+endif()
 set(DAS_PUBLISHER "yoruhinot" CACHE STRING
     "Publisher shown in Windows file metadata")
 set(DAS_COPYRIGHT "Copyright (c) 2026 yoruhinot" CACHE STRING
