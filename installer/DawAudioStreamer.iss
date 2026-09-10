@@ -53,9 +53,11 @@ Source: "{#BuildRoot}\plugins\obs-source\Release\das-obs-source.dll"; DestDir: "
 Source: "..\plugins\obs-source\data\locale\ja-JP.ini"; DestDir: "{commonappdata}\obs-studio\plugins\das-obs-source\data\locale"; Flags: ignoreversion restartreplace uninsrestartdelete
 Source: "..\docs\QuickStart.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\README.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\README.ja.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\CHANGELOG.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\PRIVACY.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\PRIVACY.ja.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\LICENSES\*"; DestDir: "{app}\licenses"; Flags: ignoreversion
 Source: "..\libs\transport\LICENSE"; DestDir: "{app}\licenses"; DestName: "MIT-transport.txt"; Flags: ignoreversion
 Source: "..\THIRD_PARTY_NOTICES.md"; DestDir: "{app}\licenses"; Flags: ignoreversion

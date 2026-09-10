@@ -57,16 +57,19 @@ fetch("https://api.github.com/repos/yoruhinot/DawAudioStreamer/releases?per_page
       const name = asset.name.toLowerCase();
       return name.endsWith(".zip") && name.includes(arch);
     });
-    const macRelease = releases.find((item) =>
-      !item.draft && (findMacAsset(item, "macos-applesilicon") || findMacAsset(item, "macos-intel"))
-    );
-    if (macRelease) {
-      const arm = findMacAsset(macRelease, "macos-applesilicon");
-      const intel = findMacAsset(macRelease, "macos-intel");
-      if (arm) macDownloadArm.href = arm.browser_download_url;
-      if (intel) macDownloadIntel.href = intel.browser_download_url;
+    // Architectures may be published separately; resolve each independently.
+    for (const [arch, button] of [["macos-applesilicon", macDownloadArm], ["macos-intel", macDownloadIntel]]) {
+      const macRelease = releases.find((item) => !item.draft && findMacAsset(item, arch));
+      const asset = macRelease && findMacAsset(macRelease, arch);
+      if (!asset || !button) continue;
+      button.href = asset.browser_download_url;
+      button.removeAttribute("aria-disabled");
+      button.removeAttribute("tabindex");
+      button.querySelector("small").textContent = isEn
+        ? `${macRelease.tag_name} · macOS 13+`
+        : `${macRelease.tag_name}・macOS 13以降`;
     }
   })
   .catch(() => {
-    // Both buttons already fall back to the GitHub Releases page.
+    // Keep published download fallbacks; unpublished Intel builds stay disabled.
   });

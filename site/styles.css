@@ -152,6 +152,7 @@ h1 span::before { content: ""; position: absolute; z-index: -1; left: -.03em; ri
 .mac-arch { display: block; padding: 11px 16px; color: var(--ink); background: transparent; border-radius: 14px; text-decoration: none; transition: color .15s ease, background .15s ease; }
 .mac-arch:last-child { border-bottom-left-radius: 27px; border-bottom-right-radius: 27px; }
 .mac-arch:hover { color: var(--paper); background: var(--ink); }
+.mac-arch[aria-disabled="true"] { opacity: .6; pointer-events: none; }
 .mac-arch strong { display: block; font-size: 15px; }
 .mac-arch small { display: block; margin-top: 2px; opacity: .72; font-size: 11px; }
 @media (prefers-reduced-motion: reduce) {
