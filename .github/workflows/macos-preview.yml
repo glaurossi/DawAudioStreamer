@@ -83,6 +83,10 @@ jobs:
           test -x "$package/payload/DAS Send.vst3/Contents/MacOS/DAS Send"
           test -x "$package/payload/DAS Send.component/Contents/MacOS/DAS Send"
           test -x "$package/payload/das-obs-source.plugin/Contents/MacOS/das-obs-source"
+          for bundle in "$package"/payload/*; do
+            /usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$bundle/Contents/Info.plist" | grep -Fx '0.4.2'
+            /usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$bundle/Contents/Info.plist" | grep -Fx '0.4.2'
+          done
 
       - name: Create corresponding source archive
         if: matrix.label == 'AppleSilicon'
