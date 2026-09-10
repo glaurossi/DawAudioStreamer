@@ -14,7 +14,7 @@ permissions:
   contents: read
 
 env:
-  DAS_VERSION: "0.4.1-macos-preview.1"
+  DAS_VERSION: "0.4.2-macos-preview.1"
 
 jobs:
   build:
@@ -36,6 +36,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Check installer language selection
+        run: |
+          /bin/zsh -n installer/macos/Install.command installer/macos/Uninstall.command installer/macos/Language.zsh
+          python3 tests/macos_language_tests.py
+
       - name: Install OBS Studio
         run: |
           brew install --cask obs
@@ -43,7 +48,9 @@ jobs:
           lipo -archs /Applications/OBS.app/Contents/Frameworks/libobs.framework/libobs | grep -qw "$(uname -m)"
 
       - name: Configure
-        run: cmake --preset ${{ matrix.preset }}
+        run: |
+          cmake --preset ${{ matrix.preset }}
+          grep -Fx "DAS_DISPLAY_VERSION:STRING=${{ env.DAS_VERSION }}" build/${{ matrix.preset }}/CMakeCache.txt
 
       - name: Build
         run: cmake --build --preset ${{ matrix.preset }} --parallel 3
@@ -70,11 +77,22 @@ jobs:
             -P cmake/CreateMacPreviewPackage.cmake
           package=build/dist/DawAudioStreamer-${{ env.DAS_VERSION }}-macOS-${{ matrix.label }}
           test -f "$package/README-macOS.txt"
+          test -f "$package/Language.zsh"
           test -x "$package/Install.command"
           test -x "$package/Uninstall.command"
           test -x "$package/payload/DAS Send.vst3/Contents/MacOS/DAS Send"
           test -x "$package/payload/DAS Send.component/Contents/MacOS/DAS Send"
           test -x "$package/payload/das-obs-source.plugin/Contents/MacOS/das-obs-source"
+
+      - name: Create corresponding source archive
+        if: matrix.label == 'AppleSilicon'
+        run: |
+          cmake \
+            -DDAS_SOURCE_DIR=${{ github.workspace }} \
+            -DDAS_BINARY_DIR=${{ github.workspace }}/build/${{ matrix.preset }} \
+            -DDAS_VERSION=${{ env.DAS_VERSION }} \
+            -DDAS_OUTPUT=${{ github.workspace }}/build/dist/DawAudioStreamer-${{ env.DAS_VERSION }}-source.zip \
+            -P cmake/CreateSourcePackage.cmake
 
       - name: Upload preview
         uses: actions/upload-artifact@v6

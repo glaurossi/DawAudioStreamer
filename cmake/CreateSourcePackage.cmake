@@ -38,7 +38,11 @@ foreach(file
   file(COPY "${source_root}/${file}" DESTINATION "${package_root}")
 endforeach()
 
-foreach(dependency juce-src r8brain-src obs_headers-src)
+set(source_dependencies juce-src r8brain-src obs_headers-src)
+if(APPLE)
+  list(APPEND source_dependencies simde-src)
+endif()
+foreach(dependency IN LISTS source_dependencies)
   set(dependency_source "${binary_root}/_deps/${dependency}")
   if(NOT EXISTS "${dependency_source}")
     message(FATAL_ERROR "Missing fetched source: ${dependency_source}")
@@ -57,6 +61,8 @@ file(WRITE "${package_root}/SOURCE_PACKAGE_README.txt"
 "  cmake --preset windows-msvc-release\n"
 "  cmake --build --preset windows-msvc-release\n"
 "  ctest --preset windows-msvc-release\n\n"
+"macOS: use macos-preview-arm or macos-preview-intel instead.\n"
+"macOS builds also require OBS Studio's installed libobs.framework.\n\n"
 "各コンポーネントの条件はLICENSE、LICENSES、THIRD_PARTY_NOTICES.mdを\n"
 "参照してください。\n")
 
