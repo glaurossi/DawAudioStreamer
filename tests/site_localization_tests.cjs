@@ -77,10 +77,11 @@ function button() {
     querySelector() { return this.small; } };
 }
 
-async function downloads(releases, failure = false) {
+async function downloads(releases, failure = false, intelPublished = false) {
   const nodes = Object.fromEntries(['windows-download', 'download-title', 'download-version',
     'mac-download-arm', 'mac-download-intel'].map(id => [id, button()]));
   nodes['mac-download-arm'].href = 'published-arm-fallback';
+  if (intelPublished) nodes['mac-download-intel'].href = 'published-intel-fallback';
   vm.runInNewContext(appCode, {
     document: { documentElement: { lang: 'en' }, querySelector: selector => nodes[selector.slice(1)] || null },
     fetch: async () => { if (failure) throw Error('offline'); return { ok: true, json: async () => releases }; }
@@ -114,13 +115,21 @@ test('API failure keeps published fallback and does not enable Intel', async () 
   assert.equal(nodes['mac-download-intel'].href, undefined);
 });
 
-test('Both HTML pages load language selection and have safe static Intel states', () => {
+test('API failure keeps both published Mac downloads available', async () => {
+  const nodes = await downloads([], true, true);
+  assert.equal(nodes['mac-download-arm'].href, 'published-arm-fallback');
+  assert.equal(nodes['mac-download-intel'].href, 'published-intel-fallback');
+});
+
+test('Both HTML pages load language selection and link to published Mac packages', () => {
   for (const filename of ['index.html', 'en/index.html']) {
     const html = fs.readFileSync(path.join(site, filename), 'utf8');
     assert.match(html, /<script src="(?:\.\.\/)?language\.js\?[^\"]+"><\/script>/);
-    const intel = html.match(/<a[^>]+id="mac-download-intel"[^>]*>/)[0];
-    assert.match(intel, /aria-disabled="true"/);
-    assert.doesNotMatch(intel, /href=/);
+    for (const [id, arch] of [['arm', 'AppleSilicon'], ['intel', 'Intel']]) {
+      const link = html.match(new RegExp(`<a[^>]+id="mac-download-${id}"[^>]*>`))[0];
+      assert.doesNotMatch(link, /aria-disabled|tabindex/);
+      assert.ok(link.includes(`releases/download/v0.4.2-macos-preview.1/DawAudioStreamer-0.4.2-macos-preview.1-macOS-${arch}.zip`));
+    }
     assert.match(html, /href="(?:\.\.\/|en\/)\?lang=(?:ja|en)"/);
   }
 });

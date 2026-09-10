@@ -71,5 +71,5 @@ fetch("https://api.github.com/repos/yoruhinot/DawAudioStreamer/releases?per_page
     }
   })
   .catch(() => {
-    // Keep published download fallbacks; unpublished Intel builds stay disabled.
+    // Keep the published download links when release information is unavailable.
   });
