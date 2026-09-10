@@ -52,6 +52,14 @@ jobs:
           cmake --preset ${{ matrix.preset }}
           grep -Fx "DAS_DISPLAY_VERSION:STRING=${{ env.DAS_VERSION }}" build/${{ matrix.preset }}/CMakeCache.txt
 
+      - name: Check OBS bundle metadata
+        run: |
+          cmake --build --preset ${{ matrix.preset }} --target das_obs_source --parallel 3
+          plist=$(find build/${{ matrix.preset }}/plugins/obs-source -path '*/das-obs-source.plugin/Contents/Info.plist' -print -quit)
+          test -f "$plist"
+          /usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$plist" | grep -Fx '0.4.2'
+          /usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$plist" | grep -Fx '0.4.2'
+
       - name: Build
         run: cmake --build --preset ${{ matrix.preset }} --parallel 3
 
