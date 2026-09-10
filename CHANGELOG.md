@@ -1,5 +1,9 @@
 # 変更履歴
 
+## [0.4.3] - 2026-09-10
+
+- Windowsインストーラーを日本語・英語の言語選択に対応
+
 ## [0.4.2] - 2026-09-09
 
 - WindowsのDiscord用出力をVB-CABLEに限定し、Wave Linkなどへ意図せず音声が送られる問題を修正
@@ -45,3 +49,4 @@ VB-CABLEの公式ページを開けます。
 [0.4.0]: https://github.com/yoruhinot/DawAudioStreamer/releases/tag/v0.4.0
 [0.4.1]: https://github.com/yoruhinot/DawAudioStreamer/releases/tag/v0.4.1
 [0.4.2]: https://github.com/yoruhinot/DawAudioStreamer/releases/tag/v0.4.2
+[0.4.3]: https://github.com/yoruhinot/DawAudioStreamer/releases/tag/v0.4.3
