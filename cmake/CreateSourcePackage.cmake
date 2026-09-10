@@ -31,7 +31,9 @@ foreach(file
     CMakePresets.json
     LICENSE
     PRIVACY.md
+    PRIVACY.ja.md
     README.md
+    README.ja.md
     THIRD_PARTY_NOTICES.md)
   file(COPY "${source_root}/${file}" DESTINATION "${package_root}")
 endforeach()
