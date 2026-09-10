@@ -11,7 +11,14 @@ get_filename_component(source_root "${DAS_SOURCE_DIR}" ABSOLUTE)
 get_filename_component(binary_root "${DAS_BINARY_DIR}" ABSOLUTE)
 get_filename_component(install_root "${DAS_INSTALL_ROOT}" ABSOLUTE)
 get_filename_component(output_root "${DAS_OUTPUT_DIR}" ABSOLUTE)
-set(package_name "DawAudioStreamer-${DAS_VERSION}-macOS-AppleSilicon")
+if(NOT DEFINED DAS_ARCH_LABEL OR "${DAS_ARCH_LABEL}" STREQUAL "")
+  if(CMAKE_HOST_SYSTEM_PROCESSOR STREQUAL "arm64")
+    set(DAS_ARCH_LABEL "AppleSilicon")
+  else()
+    set(DAS_ARCH_LABEL "Intel")
+  endif()
+endif()
+set(package_name "DawAudioStreamer-${DAS_VERSION}-macOS-${DAS_ARCH_LABEL}")
 set(package_root "${output_root}/${package_name}")
 set(payload_root "${package_root}/payload")
 
@@ -73,6 +80,10 @@ if(EXISTS "${binary_root}/_deps/simde-src/COPYING")
 endif()
 
 file(WRITE "${package_root}/SOURCE.txt"
+"Source for this preview release:\n"
+"https://github.com/yoruhinot/DawAudioStreamer/tree/${DAS_COMMIT}\n\n"
+"See the licenses folder for license terms.\n\n"
+"---\n\n"
 "このプレビュー版に対応するソース：\n"
 "https://github.com/yoruhinot/DawAudioStreamer/tree/${DAS_COMMIT}\n\n"
 "ライセンス条件はlicenses内を参照してください。\n")

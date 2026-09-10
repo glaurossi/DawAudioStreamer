@@ -27,19 +27,17 @@
       }
     },
     {
-      "name": "macos-preview",
-      "displayName": "macOS Apple Silicon プレビュー版",
+      "name": "macos-preview-base",
+      "hidden": true,
+      "displayName": "macOSプレビュー版 (base)",
       "generator": "Xcode",
-      "binaryDir": "${sourceDir}/build/macos-preview",
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
         "rhs": "Darwin"
       },
       "cacheVariables": {
-        "CMAKE_OSX_ARCHITECTURES": "arm64",
         "CMAKE_OSX_DEPLOYMENT_TARGET": "13.0",
-        "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/macos-package",
         "CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED": "NO",
         "CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED": "NO",
         "DAS_DISPLAY_VERSION": "0.4.1-macos-preview.1",
@@ -49,12 +47,33 @@
         "DAS_ENABLE_JUCE": "ON",
         "DAS_OBS_FRAMEWORK_DIR": "/Applications/OBS.app/Contents/Frameworks"
       }
+    },
+    {
+      "name": "macos-preview-arm",
+      "displayName": "macOSプレビュー版 (Apple Silicon)",
+      "inherits": "macos-preview-base",
+      "binaryDir": "${sourceDir}/build/macos-preview-arm",
+      "cacheVariables": {
+        "CMAKE_OSX_ARCHITECTURES": "arm64",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/macos-package-arm"
+      }
+    },
+    {
+      "name": "macos-preview-intel",
+      "displayName": "macOSプレビュー版 (Intel)",
+      "inherits": "macos-preview-base",
+      "binaryDir": "${sourceDir}/build/macos-preview-intel",
+      "cacheVariables": {
+        "CMAKE_OSX_ARCHITECTURES": "x86_64",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/macos-package-intel"
+      }
     }
   ],
   "buildPresets": [
     { "name": "windows-msvc-debug", "configurePreset": "windows-msvc-debug", "configuration": "Debug" },
     { "name": "windows-msvc-release", "configurePreset": "windows-msvc-release", "configuration": "Release" },
-    { "name": "macos-preview", "configurePreset": "macos-preview", "configuration": "Release" }
+    { "name": "macos-preview-arm", "configurePreset": "macos-preview-arm", "configuration": "Release" },
+    { "name": "macos-preview-intel", "configurePreset": "macos-preview-intel", "configuration": "Release" }
   ],
   "testPresets": [
     {
@@ -70,8 +89,14 @@
       "output": { "outputOnFailure": true }
     },
     {
-      "name": "macos-preview",
-      "configurePreset": "macos-preview",
+      "name": "macos-preview-arm",
+      "configurePreset": "macos-preview-arm",
+      "configuration": "Release",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "macos-preview-intel",
+      "configurePreset": "macos-preview-intel",
       "configuration": "Release",
       "output": { "outputOnFailure": true }
     }
